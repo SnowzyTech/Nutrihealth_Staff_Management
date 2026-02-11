@@ -1,13 +1,12 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Mail, Phone, MapPin } from 'lucide-react';
-
-export const metadata = {
-  title: 'Contact Us - Nutrihealth Consult',
-  description: 'Get in touch with the Nutrihealth Consult team. We would love to hear from you.',
-};
+import { PublicNavbar } from '@/components/public-navbar';
+import { PublicFooter } from '@/components/public-footer';
 
 export default function ContactPage() {
   const contacts = [
@@ -33,8 +32,10 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicNavbar />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 pt-32 animate-fade-up opacity-0 [animation-delay:200ms] [animation-fill-mode:forwards]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">Get in Touch</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -45,7 +46,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Info Section */}
-      <section className="py-16">
+      <section className="py-16 animate-fade-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {contacts.map((contact) => {
@@ -111,7 +112,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 animate-fade-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
@@ -149,6 +150,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <PublicFooter />
     </div>
   );
 }

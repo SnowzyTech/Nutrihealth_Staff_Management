@@ -1,12 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Target, Lightbulb, Award } from 'lucide-react';
-
-export const metadata = {
-  title: 'About Us - Nutrihealth Consult',
-  description: 'Learn about Nutrihealth Consult and our mission to revolutionize staff management.',
-};
+import { PublicNavbar } from '@/components/public-navbar';
+import { PublicFooter } from '@/components/public-footer';
 
 export default function AboutPage() {
   const values = [
@@ -34,8 +33,10 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PublicNavbar />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 pt-32 animate-fade-up">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">About Nutrihealth Consult</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -46,7 +47,7 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section */}
-      <section className="py-16">
+      <section className="py-16 animate-fade-up-delay-1">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -70,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 animate-fade-up-delay-2">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
@@ -97,7 +98,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-16">
+      <section className="py-16 animate-fade-up-delay-3">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Led by Experts</h2>
@@ -124,7 +125,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16 animate-fade-up-delay-4">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your HR?</h2>
           <p className="text-blue-100 mb-8 text-lg">
@@ -137,6 +138,8 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
+
+      <PublicFooter />
     </div>
   );
 }

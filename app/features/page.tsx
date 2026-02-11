@@ -15,6 +15,8 @@ import {
   BarChart3,
   Lock,
 } from 'lucide-react';
+import { PublicNavbar } from '@/components/public-navbar';
+import { PublicFooter } from '@/components/public-footer';
 
 export default function FeaturesPage() {
   const features = [
@@ -61,24 +63,10 @@ export default function FeaturesPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-slate-200 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-xl font-bold text-blue-600">
-              Nutrihealth Consult
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/auth/login">
-                <Button>Sign In</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 to-white">
+      <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 to-white animate-fade-up">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 text-balance">
             Powerful Features for Staff Management
@@ -90,7 +78,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 animate-fade-up-delay-1">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => {
@@ -122,7 +110,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Feature Highlights */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white animate-fade-up-delay-2">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">Why Choose Us?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -177,7 +165,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600 text-white">
+      <section className="py-20 px-4 bg-blue-600 text-white animate-fade-up-delay-3">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your Staff Management?
@@ -193,12 +181,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>&copy; 2024 Nutrihealth Consult. All rights reserved.</p>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

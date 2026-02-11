@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle2 } from 'lucide-react';
+import { PublicNavbar } from '@/components/public-navbar';
+import { PublicFooter } from '@/components/public-footer';
 
 export default function PricingPage() {
   const plans = [
@@ -60,24 +62,10 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-slate-200 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-xl font-bold text-blue-600">
-              Nutrihealth Consult
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/auth/login">
-                <Button>Sign In</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 to-white">
+      <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 to-white animate-fade-up">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 text-balance">
             Simple, Transparent Pricing
@@ -89,7 +77,7 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 animate-fade-up-delay-1">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {plans.map((plan) => (
@@ -134,7 +122,7 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white animate-fade-up-delay-2">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
             Frequently Asked Questions
@@ -168,7 +156,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600 text-white">
+      <section className="py-20 px-4 bg-blue-600 text-white animate-fade-up-delay-3">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Get Started?
@@ -184,12 +172,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>&copy; 2024 Nutrihealth Consult. All rights reserved.</p>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

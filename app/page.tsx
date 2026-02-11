@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Users, BookOpen, Zap, Shield, TrendingUp, Heart } from 'lucide-react';
+import { PublicNavbar } from '@/components/public-navbar';
+import { PublicFooter } from '@/components/public-footer';
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -20,31 +22,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-slate-50">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-slate-200 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-blue-600">Nutrihealth Consult</div>
-            <div className="flex items-center gap-6">
-              <Link href="/about" className="text-slate-600 hover:text-slate-900 text-sm font-medium">
-                About
-              </Link>
-              <Link href="/features" className="text-slate-600 hover:text-slate-900 text-sm font-medium">
-                Features
-              </Link>
-              <Link href="/pricing" className="text-slate-600 hover:text-slate-900 text-sm font-medium">
-                Pricing
-              </Link>
-              <Link href="/contact" className="text-slate-600 hover:text-slate-900 text-sm font-medium">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
+      <section className="pt-32 pb-20 px-4 animate-fade-up">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-bold text-slate-900 text-balance">
             Staff Management Made Simple
@@ -57,14 +38,14 @@ export default function Home() {
               <Button size="lg">Contact Us</Button>
             </Link>
             <Link href="/features">
-              <Button size="lg" variant="outline">Learn More</Button>
+              <Button size="lg" variant="outline" className="bg-transparent">Learn More</Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white animate-fade-up-delay-1">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -156,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600 text-white">
+      <section className="py-20 px-4 bg-blue-600 text-white animate-fade-up-delay-2">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your Staff Management?
@@ -172,12 +153,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>&copy; 2024 Nutrihealth Consult. All rights reserved.</p>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

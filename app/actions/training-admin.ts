@@ -244,6 +244,46 @@ export async function assignTraining(input: AssignTrainingInput) {
       return { success: false, error: error.message };
     }
 
+    // ✅ ADD EMAIL NOTIFICATIONS
+    try {
+      // Get module details
+      const { data: module } = await supabase
+        .from('training_modules')
+        .select('title')
+        .eq('id', input.moduleId)
+        .single();
+
+      // Get user emails for all assignments
+      const userIds = assignments.map(a => a.user_id as string);
+      const { data: users } = await supabase
+        .from('users')
+        .select('id, email, first_name, last_name')
+        .in('id', userIds);
+
+      if (users && module) {
+        const { sendBulkTrainingEmails } = await import('@/lib/email/send-email');
+        
+        const recipients = users.map(u => ({
+          email: u.email,
+          name: `${u.first_name} ${u.last_name}`,
+        }));
+
+        const courseUrl = `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/training/${input.moduleId}`;
+        
+        const emailResults = await sendBulkTrainingEmails(
+          recipients,
+          module.title,
+          input.deadline,
+          courseUrl
+        );
+
+        console.log(`[TRAINING EMAILS] Sent: ${emailResults.successful}, Failed: ${emailResults.failed}`);
+      }
+    } catch (emailError) {
+      // Don't fail the assignment if email fails
+      console.error('Failed to send training emails:', emailError);
+    }
+
     revalidatePath('/admin/training');
     return { success: true, message: `Assigned to ${assignments.length} user(s)` };
   } catch (error) {

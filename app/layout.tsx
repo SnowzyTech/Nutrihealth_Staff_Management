@@ -13,25 +13,36 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Nutrihealth Consult',
-  description: 'Staff Management and Training Platform',
-  generator: 'v0.app',
+  title: 'NutriHealth Consult | Staff Management & Training Platform',
+  description: 'Comprehensive HR management platform for staff onboarding, training assignments, document management, and team coordination.',
+  keywords: 'staff management, HR platform, training, onboarding, document management',
+  applicationName: 'NutriHealth Consult',
+  authors: [{ name: 'NutriHealth Consult' }],
   icons: {
-    icon: [
+    icon: '/nutrihealth-logo.svg',
+    apple: '/nutrihealth-logo.svg',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://nutrihealthconsult.com',
+    siteName: 'NutriHealth Consult',
+    title: 'NutriHealth Consult | Staff Management & Training Platform',
+    description: 'Comprehensive HR management platform for staff onboarding, training assignments, document management, and team coordination.',
+    images: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/nutrihealth-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'NutriHealth Consult Logo',
       },
     ],
-    apple: '/apple-icon.png',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NutriHealth Consult | Staff Management & Training Platform',
+    description: 'Comprehensive HR management platform for staff onboarding, training assignments, document management, and team coordination.',
+    images: ['/nutrihealth-logo.png'],
   },
 }
 

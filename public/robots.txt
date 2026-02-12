@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /auth
+Disallow: /api
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://nutrihealthconsult.com/sitemap.xml

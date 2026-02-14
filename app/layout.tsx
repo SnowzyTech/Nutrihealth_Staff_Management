@@ -19,8 +19,12 @@ export const metadata: Metadata = {
   applicationName: 'NutriHealth Consult',
   authors: [{ name: 'NutriHealth Consult' }],
   icons: {
-    icon: '/nutrihealth-logo.svg',
-    apple: '/nutrihealth-logo.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/nutrihealth-logo.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/nutrihealth-logo.png',
+    shortcut: '/favicon.ico',
   },
   openGraph: {
     type: 'website',

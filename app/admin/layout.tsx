@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Users, FileText, BookOpen, Settings, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/lib/context/auth-context';
 import { Toaster } from 'sonner';
 
 export default function AdminLayout({
@@ -15,8 +15,7 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isVerifying, setIsVerifying] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { user, loading, signOut } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Prevent body scroll in admin layout to avoid double scrollbar / whitespace
@@ -30,37 +29,27 @@ export default function AdminLayout({
   }, []);
 
   useEffect(() => {
-    const verifyAdmin = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user) {
-          router.push('/auth/login');
-          return;
-        }
+    if (loading) {
+      console.log('[v0] Admin layout: Still loading auth');
+      return;
+    }
 
-        const { data: userData } = await supabase
-          .from('users')
-          .select('role')
-          .eq('id', user.id)
-          .single();
+    console.log('[v0] Admin layout: Auth loaded, user:', user?.email);
 
-        if (!userData || userData.role !== 'admin') {
-          router.push('/dashboard');
-          return;
-        }
+    if (!user) {
+      console.log('[v0] Admin layout: No user, redirecting to login');
+      router.push('/auth/login');
+      return;
+    }
 
-        setIsAdmin(true);
-      } catch (error) {
-        console.error('Admin verification error:', error);
-        router.push('/auth/login');
-      } finally {
-        setIsVerifying(false);
-      }
-    };
+    if (user.role !== 'admin') {
+      console.log('[v0] Admin layout: User is not admin, role:', user.role);
+      router.push('/dashboard');
+      return;
+    }
 
-    verifyAdmin();
-  }, [router]);
+    console.log('[v0] Admin layout: User is admin, rendering');
+  }, [user, loading, router]);
 
   // Close sidebar on route change (mobile)
   useEffect(() => {
@@ -69,7 +58,7 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      await signOut();
       router.push('/auth/login');
       router.refresh();
     } catch (error) {
@@ -79,18 +68,18 @@ export default function AdminLayout({
     }
   };
 
-  if (isVerifying) {
+  if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Verifying access...</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-200 border-t-blue-600 mx-auto"></div>
+          <p className="mt-3 text-sm font-medium text-gray-600">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!isAdmin) {
+  if (!user || user.role !== 'admin') {
     return null;
   }
 

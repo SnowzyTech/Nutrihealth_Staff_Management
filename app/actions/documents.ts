@@ -450,6 +450,106 @@ export async function assignDocumentToStaff(documentId: string, staffId: string)
   }
 }
 
+// Assign a document to multiple staff members (batch operation)
+export async function assignDocumentToMultipleStaff(
+  documentId: string,
+  staffIds: string[]
+) {
+  try {
+    // Auth check ONCE (not per staff member)
+    const supabaseWithCookies = await createServerClientWithCookies();
+    const { data: { user: currentUser } } = await supabaseWithCookies.auth.getUser();
+
+    if (!currentUser) {
+      return { success: false, error: 'Unauthorized - Please log in' };
+    }
+
+    const supabase = createServerClient();
+    
+    const { data: currentUserData } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', currentUser.id)
+      .single();
+
+    if (currentUserData?.role !== 'admin') {
+      return { success: false, error: 'Only admins can assign documents' };
+    }
+
+    // Check for existing assignments in ONE query (not per staff)
+    const { data: existingAssignments } = await supabase
+      .from('onboarding_progress')
+      .select('user_id')
+      .eq('document_id', documentId)
+      .in('user_id', staffIds);
+
+    const existingUserIds = existingAssignments?.map(a => a.user_id) || [];
+    const newUserIds = staffIds.filter(id => !existingUserIds.includes(id));
+
+    if (newUserIds.length === 0) {
+      return { 
+        success: true, 
+        message: 'All selected staff already have this document assigned',
+        assignedCount: 0,
+        skippedCount: existingUserIds.length
+      };
+    }
+
+    // Batch insert only NEW assignments
+    const assignments = newUserIds.map(userId => ({
+      user_id: userId,
+      document_id: documentId,
+      created_at: new Date().toISOString(),
+      status: 'pending',
+    }));
+
+    const { error } = await supabase
+      .from('onboarding_progress')
+      .insert(assignments);
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    // Create notifications in parallel
+    const notifications = newUserIds.map(userId => ({
+      user_id: userId,
+      title: 'New Document Assigned',
+      message: 'A new document has been assigned to you for review.',
+      type: 'document_assignment',
+      related_resource_type: 'document',
+      related_resource_id: documentId,
+      is_read: false,
+    }));
+
+    await supabase.from('notifications').insert(notifications);
+
+    // Create audit log
+    await supabase.from('audit_logs').insert({
+      user_id: currentUser.id,
+      action: 'assign_document',
+      entity_type: 'document',
+      entity_id: documentId,
+      details: {
+        assigned_to_count: newUserIds.length,
+        skipped_count: existingUserIds.length,
+      },
+    });
+
+    revalidatePath('/admin/documents');
+
+    return { 
+      success: true, 
+      message: `Document assigned to ${newUserIds.length} staff member(s)`,
+      assignedCount: newUserIds.length,
+      skippedCount: existingUserIds.length
+    };
+  } catch (error) {
+    console.error('Batch assign error:', error);
+    return { success: false, error: 'Failed to assign document' };
+  }
+}
+
 // Assign a document to all active staff members
 export async function assignDocumentToAllStaff(documentId: string) {
   try {

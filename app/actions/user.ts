@@ -202,48 +202,62 @@ export async function createStaffMember(input: z.infer<typeof StaffMemberSchema>
       description: doc.description,
     }));
 
-    await supabase.from('onboarding_documents').insert(onboardingDocs);
-
-    // Create welcome notification
-    await supabase.from('notifications').insert({
-      user_id: authData.user.id,
-      title: 'Welcome to Nutrihealth Consult',
-      message: 'Please complete your onboarding documents and change your password.',
-      type: 'info',
-      is_read: false,
-    });
-
-    // Create audit log for staff creation
-    await supabase.from('audit_logs').insert({
-      user_id: currentUser.id,
-      action: 'create_staff',
-      entity_type: 'user',
-      entity_id: authData.user.id,
-      details: {
-        staff_email: validatedInput.email,
-        staff_name: `${validatedInput.firstName} ${validatedInput.lastName}`,
-        email_sent: !!input.sendEmail,
-      },
-    });
-
-    // Send welcome email if requested
+    // Run all non-critical post-creation tasks in parallel
     let emailSent = false;
-    if (input.sendEmail) {
-      try {
-        const emailResult = await sendWelcomeEmail({
-          to: validatedInput.email,
-          name: `${validatedInput.firstName} ${validatedInput.lastName}`,
-          email: validatedInput.email,
-          temporaryPassword: tempPassword,
-          loginUrl: `${process.env.NEXT_PUBLIC_APP_URL}/auth/login`,
-        });
-        emailSent = emailResult.success;
-        if (!emailResult.success) {
-          console.error('Failed to send welcome email:', emailResult.error);
-        }
-      } catch (emailError) {
-        console.error('Email sending error:', emailError);
+    try {
+      const results = await Promise.allSettled([
+        // Task 1: Create onboarding documents
+        supabase.from('onboarding_documents').insert(onboardingDocs),
+        
+        // Task 2: Create welcome notification
+        supabase.from('notifications').insert({
+          user_id: authData.user.id,
+          title: 'Welcome to Nutrihealth Consult',
+          message: 'Please complete your onboarding documents and change your password.',
+          type: 'info',
+          is_read: false,
+        }),
+        
+        // Task 3: Create audit log
+        supabase.from('audit_logs').insert({
+          user_id: currentUser.id,
+          action: 'create_staff',
+          entity_type: 'user',
+          entity_id: authData.user.id,
+          details: {
+            staff_email: validatedInput.email,
+            staff_name: `${validatedInput.firstName} ${validatedInput.lastName}`,
+            email_sent: !!input.sendEmail,
+          },
+        }),
+        
+        // Task 4: Send welcome email (if requested)
+        input.sendEmail 
+          ? sendWelcomeEmail({
+              to: validatedInput.email,
+              name: `${validatedInput.firstName} ${validatedInput.lastName}`,
+              email: validatedInput.email,
+              temporaryPassword: tempPassword,
+              loginUrl: `${process.env.NEXT_PUBLIC_APP_URL}/auth/login`,
+            })
+          : Promise.resolve({ success: false }),
+      ]);
+
+      // Check if email was sent (4th promise result)
+      if (results[3].status === 'fulfilled' && results[3].value?.success) {
+        emailSent = true;
       }
+
+      // Log any failures (but don't fail the whole staff creation)
+      results.forEach((result, index) => {
+        if (result.status === 'rejected') {
+          const taskNames = ['onboarding documents', 'notification', 'audit log', 'welcome email'];
+          console.error(`Failed to create ${taskNames[index]}:`, result.reason);
+        }
+      });
+    } catch (error) {
+      console.error('Post-creation tasks error:', error);
+      // Staff member is still created successfully, just log the error
     }
 
     revalidatePath('/admin/staff');

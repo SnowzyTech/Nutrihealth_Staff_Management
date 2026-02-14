@@ -6,7 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard, BookOpen, FileText, GraduationCap, User, LogOut, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/lib/context/auth-context';
 
 export default function DashboardLayout({
   children,
@@ -15,50 +15,27 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { user, loading, signOut } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    const verifyAuth = async () => {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user) {
-          router.push('/auth/login');
-          return;
-        }
+    if (loading) return;
 
-        const { data: userData } = await supabase
-          .from('users')
-          .select('first_name, last_name, role, is_active')
-          .eq('id', user.id)
-          .single();
+    if (!user) {
+      router.push('/auth/login');
+      return;
+    }
 
-        if (!userData || !userData.is_active) {
-          await supabase.auth.signOut();
-          router.push('/auth/login');
-          return;
-        }
+    if (user.role === 'admin') {
+      router.push('/admin');
+      return;
+    }
 
-        if (userData.role === 'admin') {
-          router.push('/admin');
-          return;
-        }
-
-        setUserName(`${userData.first_name} ${userData.last_name}`);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Auth verification error:', error);
-        router.push('/auth/login');
-      } finally {
-        setIsVerifying(false);
-      }
-    };
-
-    verifyAuth();
-  }, [router]);
+    if (!user.is_active) {
+      router.push('/auth/login');
+      return;
+    }
+  }, [user, loading, router]);
 
   // Close sidebar on route change
   useEffect(() => {
@@ -67,30 +44,27 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('Logout error:', error);
-      } else {
-        router.push('/auth/login');
-      }
+      await signOut();
+      router.push('/auth/login');
+      router.refresh();
     } catch (error) {
       console.error('Logout error:', error);
       window.location.href = '/auth/login';
     }
   };
 
-  if (isVerifying) {
+  if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-slate-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-slate-300 border-t-slate-800 mx-auto"></div>
-          <p className="mt-4 text-sm text-slate-500">Loading...</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-slate-800 mx-auto"></div>
+          <p className="mt-3 text-sm font-medium text-slate-600">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!isAuthenticated) {
+  if (!user || user.role === 'admin' || !user.is_active) {
     return null;
   }
 
@@ -143,7 +117,7 @@ export default function DashboardLayout({
       {/* User area + logout */}
       <div className="p-4 border-t border-slate-700 bg-slate-900">
         <div className="mb-3 px-2">
-          <p className="text-sm font-medium text-slate-50 truncate">{userName}</p>
+          <p className="text-sm font-medium text-slate-50 truncate">{user?.first_name} {user?.last_name}</p>
           <p className="text-xs text-slate-500">Staff Member</p>
         </div>
         <Button
@@ -202,7 +176,7 @@ export default function DashboardLayout({
             <span className="text-sm font-medium text-slate-400 lg:hidden">Nutrihealth</span>
           </div>
           <div className="text-sm text-slate-400 hidden sm:block">
-            Welcome back, <span className="font-medium text-slate-50">{userName}</span>
+            Welcome back, <span className="font-medium text-slate-50">{user?.first_name}</span>
           </div>
         </div>
         <div className="p-4 lg:p-8">

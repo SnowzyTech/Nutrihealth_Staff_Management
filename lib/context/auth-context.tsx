@@ -6,50 +6,71 @@ import type { AuthContextType, User } from '@/lib/types/auth';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Simple in-memory cache with 5-minute expiry
+let userCache: { user: User | null; timestamp: number } | null = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if user is logged in
-    const checkUser = async () => {
-      try {
-        const { data: { user: authUser } } = await supabase.auth.getUser();
-        
-        if (authUser) {
-          const { data: userData } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', authUser.id)
-            .single();
-          
-          if (userData) {
-            setUser(userData);
-          }
-        }
-      } catch (error) {
-        console.error('Error checking user:', error);
-      } finally {
+  const fetchUser = async (useCache = true) => {
+    // Check cache first
+    if (useCache && userCache && Date.now() - userCache.timestamp < CACHE_DURATION) {
+      setUser(userCache.user);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      
+      if (!authUser) {
+        setUser(null);
+        userCache = null;
         setLoading(false);
+        return;
       }
-    };
 
-    checkUser();
-
-    // Subscribe to auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const { data: userData } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-        
-        if (userData) {
-          setUser(userData);
-        }
+      // Single DB call with all needed fields
+      const { data: userData } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', authUser.id)
+        .single();
+      
+      if (userData) {
+        setUser(userData);
+        // Cache the user data
+        userCache = { user: userData, timestamp: Date.now() };
       } else {
         setUser(null);
+        userCache = null;
+      }
+    } catch (error) {
+      console.error('Auth error:', error);
+      setUser(null);
+      userCache = null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const refreshUser = async () => {
+    userCache = null; // Invalidate cache
+    await fetchUser(false);
+  };
+
+  useEffect(() => {
+    fetchUser();
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setUser(null);
+        userCache = null;
+      } else {
+        fetchUser(false); // Refresh on auth change
       }
     });
 
@@ -94,6 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     setUser(null);
+    userCache = null; // Clear cache on logout
   };
 
   const resetPassword = async (email: string) => {
@@ -105,7 +127,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut, resetPassword }}>
+    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut, resetPassword, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

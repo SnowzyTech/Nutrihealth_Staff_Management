@@ -16,6 +16,12 @@ export const metadata: Metadata = {
   title: 'NutriHealth Consult | Staff Management & Training Platform',
   description: 'Comprehensive HR management platform for staff onboarding, training assignments, document management, and team coordination.',
   keywords: 'staff management, HR platform, training, onboarding, document management',
+
+  verification: {
+    google: 'vw-7HRM4ElIzz4vAUjjHuohd70xeNS66V2-H1EVpcqo',
+  },
+
+  
   applicationName: 'NutriHealth Consult',
   authors: [{ name: 'NutriHealth Consult' }],
   icons: {

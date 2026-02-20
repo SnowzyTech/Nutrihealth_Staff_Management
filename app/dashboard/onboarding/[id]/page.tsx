@@ -315,24 +315,24 @@ export default function OnboardingDocumentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-primary/15 border-b border-slate-200">
+      <div className="bg-gradient-to-r from-[#43005F]/5 to-[#FE871F]/5 border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Link
             href="/dashboard/onboarding"
-            className="text-blue-600 hover:text-blue-700 border p-2 mt-3  rounded text-sm mb-6 inline-flex items-center gap-1"
+            className="text-[#43005F] hover:text-[#320044] border border-gray-200 p-2 mt-3  rounded text-sm mb-6 inline-flex items-center gap-1"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Onboarding</span>
           </Link>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-200 mt-4 flex items-center gap-2">
+              <h1 className="text-3xl font-bold text-[#43005F] mt-4 flex items-center gap-2">
                 <FileText className="h-8 w-8" />
                 {document.title}
               </h1>
-              <p className="text-slate-300 mt-2">{document.description}</p>
+              <p className="text-gray-600 mt-2">{document.description}</p>
             </div>
             {getStatusBadge()}
           </div>

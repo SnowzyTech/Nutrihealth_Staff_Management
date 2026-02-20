@@ -164,63 +164,63 @@ export default function TrainingPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">My Training</h1>
-        <p className="text-slate-300 mt-1">Complete your required training modules and track your progress</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-[#43005F]">My Training</h1>
+        <p className="text-gray-600 mt-1">Complete your required training modules and track your progress</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Total</p>
-                <p className="text-2xl font-bold text-slate-50 mt-1">{modules.length}</p>
+                <p className="text-xs font-medium text-gray-600 uppercase tracking-wide">Total</p>
+                <p className="text-2xl font-bold text-[#43005F] mt-1">{modules.length}</p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                <GraduationCap className="h-5 w-5 text-blue-400" />
+              <div className="h-10 w-10 rounded-full bg-[#FE871F]/20 border border-[#FE871F]/30 flex items-center justify-center">
+                <GraduationCap className="h-5 w-5 text-[#FE871F]" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Completed</p>
-                <p className="text-2xl font-bold text-green-400 mt-1">{completedCount}</p>
+                <p className="text-xs font-medium text-gray-600 uppercase tracking-wide">Completed</p>
+                <p className="text-2xl font-bold text-green-600 mt-1">{completedCount}</p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-green-600/20 border border-green-500/30 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-green-400" />
+              <div className="h-10 w-10 rounded-full bg-green-100 border border-green-300 flex items-center justify-center">
+                <CheckCircle2 className="h-5 w-5 text-green-600" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">In Progress</p>
-                <p className="text-2xl font-bold text-blue-400 mt-1">{inProgressCount}</p>
+                <p className="text-xs font-medium text-gray-600 uppercase tracking-wide">In Progress</p>
+                <p className="text-2xl font-bold text-[#FE871F] mt-1">{inProgressCount}</p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                <Clock className="h-5 w-5 text-blue-400" />
+              <div className="h-10 w-10 rounded-full bg-[#FE871F]/20 border border-[#FE871F]/30 flex items-center justify-center">
+                <Clock className="h-5 w-5 text-[#FE871F]" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="p-5">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Required</p>
-                <p className="text-2xl font-bold text-slate-50 mt-1">
-                  <span className="text-green-400">{mandatoryCompleted}</span>
-                  <span className="text-slate-500 text-lg">/{mandatoryModules.length}</span>
+                <p className="text-xs font-medium text-gray-600 uppercase tracking-wide">Required</p>
+                <p className="text-2xl font-bold text-[#43005F] mt-1">
+                  <span className="text-green-600">{mandatoryCompleted}</span>
+                  <span className="text-gray-500 text-lg">/{mandatoryModules.length}</span>
                 </p>
               </div>
-              <div className="h-10 w-10 rounded-full bg-red-600/20 border border-red-500/30 flex items-center justify-center">
-                <BookOpen className="h-5 w-5 text-red-400" />
+              <div className="h-10 w-10 rounded-full bg-red-100 border border-red-300 flex items-center justify-center">
+                <BookOpen className="h-5 w-5 text-red-600" />
               </div>
             </div>
           </CardContent>
@@ -229,11 +229,11 @@ export default function TrainingPage() {
 
       {/* Overall Progress */}
       {modules.length > 0 && (
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-sm font-medium text-slate-300">Overall Progress</p>
-              <p className="text-sm font-bold text-slate-50">
+              <p className="text-sm font-medium text-gray-600">Overall Progress</p>
+              <p className="text-sm font-bold text-[#43005F]">
                 {Math.round((completedCount / modules.length) * 100)}%
               </p>
             </div>
@@ -243,21 +243,21 @@ export default function TrainingPage() {
       )}
 
       {/* Search & Filter */}
-      <Card className="bg-slate-700 border-slate-600 shadow-xl">
+      <Card className="bg-white border-gray-200 shadow-xl">
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 type="text"
                 placeholder="Search modules..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-slate-600 bg-slate-800 text-slate-50 placeholder:text-slate-400"
+                className="pl-10 border-gray-200 bg-gray-50 text-[#43005F] placeholder:text-gray-400"
               />
             </div>
             <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="w-40 border-slate-600 bg-slate-800 text-slate-50">
+              <SelectTrigger className="w-40 border-gray-200 bg-gray-50 text-[#43005F]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -268,7 +268,7 @@ export default function TrainingPage() {
               </SelectContent>
             </Select>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-40 border-slate-600 bg-slate-800 text-slate-50">
+              <SelectTrigger className="w-40 border-gray-200 bg-gray-50 text-[#43005F]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -284,18 +284,18 @@ export default function TrainingPage() {
 
       {/* Modules List */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-slate-50">
+        <h2 className="text-lg font-semibold text-[#43005F]">
           Available Modules
-          <span className="text-sm text-slate-400 font-normal ml-2">({filteredModules.length})</span>
+          <span className="text-sm text-gray-600 font-normal ml-2">({filteredModules.length})</span>
         </h2>
         {filteredModules.length === 0 ? (
-          <Card className="bg-slate-700 border-slate-600 shadow-xl">
+          <Card className="bg-white border-gray-200 shadow-xl">
             <CardContent className="py-16 text-center">
-              <div className="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-4">
-                <GraduationCap className="h-6 w-6 text-slate-500" />
+              <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <GraduationCap className="h-6 w-6 text-gray-400" />
               </div>
-              <p className="text-slate-50 font-medium">No training modules found</p>
-              <p className="text-slate-400 text-sm mt-1">Try adjusting your filters or check back later.</p>
+              <p className="text-[#43005F] font-medium">No training modules found</p>
+              <p className="text-gray-600 text-sm mt-1">Try adjusting your filters or check back later.</p>
             </CardContent>
           </Card>
         ) : (
@@ -306,7 +306,7 @@ export default function TrainingPage() {
               const videoPct = getVideoWatchPct(module.id);
 
               return (
-                <Card key={module.id} className="bg-slate-700 border-slate-600 shadow-xl hover:shadow-2xl transition-shadow group overflow-hidden">
+                <Card key={module.id} className="bg-primary border-gray-300 shadow-xl hover:shadow-2xl transition-shadow group overflow-hidden">
                   {/* YouTube Thumbnail */}
                   {module.youtube_video_id && (
                     <div className="relative">
@@ -405,7 +405,7 @@ export default function TrainingPage() {
                     )}
 
                     <Link href={`/dashboard/training/${module.id}`}>
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button className="w-full bg-secondary cursor-pointer hover:bg-secondary/90 text-white">
                         {status === 'not_started' && 'Start Module'}
                         {status === 'in_progress' && 'Continue Module'}
                         {status === 'completed' && 'Review Module'}

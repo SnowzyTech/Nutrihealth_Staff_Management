@@ -148,47 +148,47 @@ export default function ProfilePage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">My Profile</h1>
-        <p className="text-slate-300 mt-1">Manage your account settings and preferences</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-[#43005F]">My Profile</h1>
+        <p className="text-gray-600 mt-1">Manage your account settings and preferences</p>
       </div>
 
       {/* Profile Header Card */}
-      <Card className="bg-slate-700 border-slate-600 shadow-xl">
+      <Card className="bg-primary border-gray-200 shadow-xl">
         <CardContent className="p-6 lg:p-8">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <Avatar className="h-20 w-20 flex-shrink-0">
-              <AvatarFallback className="bg-blue-600/20 border border-blue-500/30 text-blue-400 text-2xl font-bold">
+              <AvatarFallback className="bg-[#FE871F]/20 border border-[#FE871F]/30 text-[#FE871F] text-2xl font-bold">
                 {profile.firstName?.[0]}{profile.lastName?.[0]}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-slate-50">
+              <h2 className="text-2xl font-bold text-white">
                 {profile.firstName} {profile.lastName}
               </h2>
               <div className="flex items-center gap-2 mt-2 flex-wrap">
-                <Badge className="bg-blue-900/30 text-blue-400 border-blue-500/30 capitalize">{user?.role}</Badge>
-                <Badge className="bg-green-900/30 text-green-400 border-green-500/30">Active</Badge>
+                <Badge className="bg-[#FE871F]/20 text-[#FE871F] border-[#FE871F]/30 capitalize">{user?.role}</Badge>
+                <Badge className="bg-green-100 text-green-800 border-green-300">Active</Badge>
               </div>
-              <div className="mt-4 space-y-1.5 text-sm text-slate-300">
+              <div className="mt-4 space-y-1.5 text-sm text-gray-100">
                 <p className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-slate-500" />
+                  <Mail className="h-4 w-4 text-gray-200" />
                   {profile.email}
                 </p>
                 {profile.department && (
                   <p className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4 text-slate-500" />
+                    <Building2 className="h-4 w-4 text-gray-200" />
                     {profile.department}
                   </p>
                 )}
                 {profile.position && (
                   <p className="flex items-center gap-2">
-                    <Briefcase className="h-4 w-4 text-slate-500" />
+                    <Briefcase className="h-4 w-4 text-gray-400" />
                     {profile.position}
                   </p>
                 )}
                 {profile.employeeId && (
                   <p className="flex items-center gap-2">
-                    <Hash className="h-4 w-4 text-slate-500" />
+                    <Hash className="h-4 w-4 text-gray-400" />
                     {profile.employeeId}
                   </p>
                 )}
@@ -200,12 +200,12 @@ export default function ProfilePage() {
 
       {/* Tabs */}
       <Tabs defaultValue="personal" className="space-y-6">
-        <TabsList className="bg-slate-700 border border-slate-600 p-1">
-          <TabsTrigger value="personal" className="flex items-center gap-2 data-[state=active]:bg-slate-800 data-[state=active]:text-slate-50">
+        <TabsList className="bg-gray-100 border border-gray-200 p-1">
+          <TabsTrigger value="personal" className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-[#43005F]">
             <User className="h-4 w-4" />
             Personal Info
           </TabsTrigger>
-          <TabsTrigger value="security" className="flex items-center gap-2 data-[state=active]:bg-slate-800 data-[state=active]:text-slate-50">
+          <TabsTrigger value="security" className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-[#43005F]">
             <Lock className="h-4 w-4" />
             Change Password
           </TabsTrigger>
@@ -213,31 +213,31 @@ export default function ProfilePage() {
 
         {/* Personal Info Tab */}
         <TabsContent value="personal">
-          <Card className="bg-slate-700 border-slate-600 shadow-xl">
-            <CardHeader className="border-b border-slate-600">
-              <CardTitle className="text-lg text-slate-50">Personal Information</CardTitle>
-              <CardDescription className="text-slate-400">Update your personal details</CardDescription>
+          <Card className="bg-white border-gray-200 shadow-xl">
+            <CardHeader className="border-b border-gray-200">
+              <CardTitle className="text-lg text-[#43005F]">Personal Information</CardTitle>
+              <CardDescription className="text-gray-600">Update your personal details</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
               <form onSubmit={handleUpdateProfile} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName" className="text-sm font-medium text-slate-300">First Name</Label>
+                    <Label htmlFor="firstName" className="text-sm font-medium text-[#43005F]">First Name</Label>
                     <Input
                       id="firstName"
                       value={profile.firstName}
                       onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName" className="text-sm font-medium text-slate-300">Last Name</Label>
+                    <Label htmlFor="lastName" className="text-sm font-medium text-[#43005F]">Last Name</Label>
                     <Input
                       id="lastName"
                       value={profile.lastName}
                       onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                   </div>
@@ -245,46 +245,46 @@ export default function ProfilePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-slate-300">Email Address</Label>
+                    <Label htmlFor="email" className="text-sm font-medium text-[#43005F]">Email Address</Label>
                     <Input
                       id="email"
                       type="email"
                       value={profile.email}
                       onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-sm font-medium text-slate-300">Phone Number</Label>
+                    <Label htmlFor="phone" className="text-sm font-medium text-[#43005F]">Phone Number</Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={profile.phone}
                       onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                     />
                   </div>
                 </div>
 
-                <div className="border-t border-slate-600 pt-6">
-                  <p className="text-sm font-medium text-slate-400 uppercase tracking-wide mb-4">Employment Details</p>
+                <div className="border-t border-gray-200 pt-6">
+                  <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mb-4">Employment Details</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="department" className="text-sm font-medium text-slate-300">Department</Label>
-                      <Input id="department" value={profile.department} disabled className="bg-slate-800 border-slate-600 text-slate-400" />
-                      <p className="text-xs text-slate-500">Contact admin to change</p>
+                      <Label htmlFor="department" className="text-sm font-medium text-[#43005F]">Department</Label>
+                      <Input id="department" value={profile.department} disabled className="bg-gray-100 border-gray-200 text-gray-600" />
+                      <p className="text-xs text-gray-500">Contact admin to change</p>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="position" className="text-sm font-medium text-slate-300">Position</Label>
-                      <Input id="position" value={profile.position} disabled className="bg-slate-800 border-slate-600 text-slate-400" />
-                      <p className="text-xs text-slate-500">Contact admin to change</p>
+                      <Label htmlFor="position" className="text-sm font-medium text-[#43005F]">Position</Label>
+                      <Input id="position" value={profile.position} disabled className="bg-gray-100 border-gray-200 text-gray-600" />
+                      <p className="text-xs text-gray-500">Contact admin to change</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-600">
-                  <Button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700 text-white">
+                <div className="pt-4 border-t border-gray-200">
+                  <Button type="submit" disabled={loading} className="bg-[#43005F] hover:bg-[#320044] text-white">
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Save Changes
                   </Button>
@@ -296,21 +296,21 @@ export default function ProfilePage() {
 
         {/* Security Tab */}
         <TabsContent value="security">
-          <Card className="bg-slate-700 border-slate-600 shadow-xl">
-            <CardHeader className="border-b border-slate-600">
-              <CardTitle className="text-lg text-slate-50">Change Password</CardTitle>
-              <CardDescription className="text-slate-400">Update your password to keep your account secure</CardDescription>
+          <Card className="bg-white border-gray-200 shadow-xl">
+            <CardHeader className="border-b border-gray-200">
+              <CardTitle className="text-lg text-[#43005F]">Change Password</CardTitle>
+              <CardDescription className="text-gray-600">Update your password to keep your account secure</CardDescription>
             </CardHeader>
             <CardContent className="p-6">
               <form onSubmit={handleChangePassword} className="space-y-6 max-w-md">
                 {passwordError && (
-                  <div className="bg-red-900/20 text-red-300 p-3 rounded-lg text-sm border border-red-500/30">
+                  <div className="bg-red-50 text-red-800 p-3 rounded-lg text-sm border border-red-300">
                     {passwordError}
                   </div>
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="currentPassword" className="text-sm font-medium text-slate-300">Current Password</Label>
+                  <Label htmlFor="currentPassword" className="text-sm font-medium text-[#43005F]">Current Password</Label>
                   <div className="relative">
                     <Input
                       id="currentPassword"
@@ -318,13 +318,13 @@ export default function ProfilePage() {
                       value={passwordData.currentPassword}
                       onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                       placeholder="Enter your current password"
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -332,7 +332,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="newPassword" className="text-sm font-medium text-slate-300">New Password</Label>
+                  <Label htmlFor="newPassword" className="text-sm font-medium text-[#43005F]">New Password</Label>
                   <div className="relative">
                     <Input
                       id="newPassword"
@@ -340,22 +340,22 @@ export default function ProfilePage() {
                       value={passwordData.newPassword}
                       onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                       placeholder="Enter your new password"
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
-                  <p className="text-xs text-slate-500">Password must be at least 8 characters</p>
+                  <p className="text-xs text-gray-500">Password must be at least 8 characters</p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-slate-300">Confirm New Password</Label>
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#43005F]">Confirm New Password</Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
@@ -363,27 +363,27 @@ export default function ProfilePage() {
                       value={passwordData.confirmPassword}
                       onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                       placeholder="Confirm your new password"
-                      className="bg-slate-800 border-slate-600 text-slate-50"
+                      className="bg-gray-50 border-gray-200 text-[#43005F]"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                   {passwordData.confirmPassword && passwordData.newPassword === passwordData.confirmPassword && (
-                    <p className="text-xs text-green-400 flex items-center gap-1">
+                    <p className="text-xs text-green-700 flex items-center gap-1">
                       <CheckCircle className="h-3 w-3" />
                       Passwords match
                     </p>
                   )}
                 </div>
 
-                <div className="pt-4 border-t border-slate-600">
-                  <Button type="submit" disabled={passwordLoading} className="bg-blue-600 hover:bg-blue-700 text-white">
+                <div className="pt-4 border-t border-gray-200">
+                  <Button type="submit" disabled={passwordLoading} className="bg-[#43005F] hover:bg-[#320044] text-white">
                     {passwordLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Change Password
                   </Button>

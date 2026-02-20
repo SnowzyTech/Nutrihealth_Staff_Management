@@ -333,16 +333,16 @@ export default function AdminStaffPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-50 tracking-tight">
+          <h1 className="text-3xl mt-4 font-bold text-primary tracking-tight">
             Staff Management
           </h1>
-          <p className="text-slate-400 mt-1">
+          <p className="text-slate-700 mt-1">
             Manage staff accounts and permissions
           </p>
         </div>
         <Button
           onClick={() => setIsDialogOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
+          className="bg-secondary mt-4 cursor-pointer hover:bg-orange-800 text-white gap-2"
         >
           <Plus className="h-4 w-4" />
           Add Staff Member
@@ -351,55 +351,55 @@ export default function AdminStaffPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-blue-950 to-blue-900 border-blue-800 shadow-xl shadow-blue-900/20">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-xl shadow-blue-900/10">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-200 uppercase tracking-wide">
+                <p className="text-sm font-medium text-blue-700 uppercase tracking-wide">
                   Total Staff
                 </p>
-                <p className="text-3xl font-bold text-white mt-2">
+                <p className="text-3xl font-bold text-blue-900 mt-2">
                   {staff.length}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-blue-800/50 flex items-center justify-center ring-4 ring-blue-900/50">
-                <Users className="h-6 w-6 text-blue-200" />
+              <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center ring-4 ring-blue-50">
+                <Users className="h-6 w-6 text-blue-700" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-green-950 to-green-900 border-green-800 shadow-xl shadow-green-900/20">
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 shadow-xl shadow-green-900/10">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-200 uppercase tracking-wide">
+                <p className="text-sm font-medium text-green-700 uppercase tracking-wide">
                   Active
                 </p>
-                <p className="text-3xl font-bold text-white mt-2">
+                <p className="text-3xl font-bold text-green-900 mt-2">
                   {activeStaff}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-green-800/50 flex items-center justify-center ring-4 ring-green-900/50">
-                <CheckCircle className="h-6 w-6 text-green-200" />
+              <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center ring-4 ring-green-50">
+                <CheckCircle className="h-6 w-6 text-green-700" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700 shadow-xl shadow-slate-900/20">
+        <Card className="bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200 shadow-xl shadow-gray-900/10">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-300 uppercase tracking-wide">
+                <p className="text-sm font-medium text-gray-700 uppercase tracking-wide">
                   Inactive
                 </p>
-                <p className="text-3xl font-bold text-slate-200 mt-2">
+                <p className="text-3xl font-bold text-gray-900 mt-2">
                   {inactiveStaff}
                 </p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-slate-700/50 flex items-center justify-center ring-4 ring-slate-800/50">
-                <UserX className="h-6 w-6 text-slate-300" />
+              <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center ring-4 ring-gray-50">
+                <UserX className="h-6 w-6 text-gray-700" />
               </div>
             </div>
           </CardContent>
@@ -407,29 +407,29 @@ export default function AdminStaffPage() {
       </div>
 
       {/* Filters & Search */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-gray-200 bg-white shadow-xl">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
                   placeholder="Search by name, email, or department..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 border-slate-600 bg-slate-700 text-slate-50 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  className="pl-10 border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#43005F] focus:ring-2 focus:ring-[#43005F]/20"
                 />
               </div>
             </div>
 
             <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
-              <SelectTrigger className="w-full md:w-52 border-slate-600 bg-slate-700 text-slate-50">
+              <SelectTrigger className="w-full md:w-52 border-gray-300 bg-white text-gray-900">
                 <SelectValue placeholder="All Departments" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
-                <SelectItem value="all" className="text-slate-50">All Departments</SelectItem>
+              <SelectContent className="bg-white border-gray-300">
+                <SelectItem value="all" className="text-gray-900">All Departments</SelectItem>
                 {DEPARTMENTS.map((dept) => (
-                  <SelectItem key={dept} value={dept} className="text-slate-50">
+                  <SelectItem key={dept} value={dept} className="text-gray-900">
                     {dept}
                   </SelectItem>
                 ))}
@@ -437,14 +437,14 @@ export default function AdminStaffPage() {
             </Select>
 
             <Select value={roleFilter} onValueChange={setRoleFilter}>
-              <SelectTrigger className="w-full md:w-40 border-slate-600 bg-slate-700 text-slate-50">
+              <SelectTrigger className="w-full md:w-40 border-gray-300 bg-white text-gray-900">
                 <SelectValue placeholder="All Roles" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
-                <SelectItem value="all" className="text-slate-50">All Roles</SelectItem>
-                <SelectItem value="admin" className="text-slate-50">Admin</SelectItem>
-                <SelectItem value="manager" className="text-slate-50">Manager</SelectItem>
-                <SelectItem value="staff" className="text-slate-50">Staff</SelectItem>
+              <SelectContent className="bg-white border-gray-300">
+                <SelectItem value="all" className="text-gray-900">All Roles</SelectItem>
+                <SelectItem value="admin" className="text-gray-900">Admin</SelectItem>
+                <SelectItem value="manager" className="text-gray-900">Manager</SelectItem>
+                <SelectItem value="staff" className="text-gray-900">Staff</SelectItem>
               </SelectContent>
             </Select>
 
@@ -453,7 +453,7 @@ export default function AdminStaffPage() {
               size="icon"
               onClick={fetchStaffData}
               disabled={isLoading}
-              className="border-slate-600 bg-slate-700 text-slate-300 hover:bg-slate-600 shrink-0"
+              className="border-gray-300 bg-white text-gray-600 hover:bg-gray-100 shrink-0"
             >
               <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
               <span className="sr-only">Refresh staff list</span>
@@ -464,16 +464,16 @@ export default function AdminStaffPage() {
 
       {/* Staff Table - Desktop */}
       {filteredStaff.length === 0 ? (
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-gray-200 bg-white shadow-xl">
           <CardContent className="p-12">
             <div className="text-center">
-              <div className="h-16 w-16 rounded-full bg-slate-700 flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-slate-500" />
+              <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-gray-500" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-50 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 No staff members found
               </h3>
-              <p className="text-slate-400 mb-6">
+              <p className="text-gray-600 mb-6">
                 {searchTerm || departmentFilter !== 'all' || roleFilter !== 'all'
                   ? 'Try adjusting your filters or search term'
                   : 'Get started by creating your first staff member'}
@@ -481,7 +481,7 @@ export default function AdminStaffPage() {
               {!searchTerm && departmentFilter === 'all' && roleFilter === 'all' && (
                 <Button
                   onClick={() => setIsDialogOpen(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
+                  className="bg-[#43005F] hover:bg-[#320044] text-white gap-2"
                 >
                   <Plus className="h-4 w-4" />
                   Add Staff Member
@@ -493,28 +493,28 @@ export default function AdminStaffPage() {
       ) : (
         <>
           {/* Desktop Table */}
-          <Card className="border-slate-700 bg-slate-800 shadow-xl hidden md:block">
+          <Card className="border-gray-200 bg-white shadow-xl hidden md:block">
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-slate-900/50 border-b border-slate-700">
+                  <thead className="bg-primary border-b border-primary/90">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Staff Member
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Department
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Role
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Status
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Hire Date
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                      <th className="px-6 py-4 text-right text-xs font-semibold text-slate-200 uppercase tracking-wider">
                         Actions
                       </th>
                     </tr>
@@ -531,18 +531,18 @@ export default function AdminStaffPage() {
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <p className="font-medium text-slate-50">
+                              <p className="font-medium text-primary">
                                 {staffMember.first_name} {staffMember.last_name}
                               </p>
-                              <p className="text-sm text-slate-400">
+                              <p className="text-sm text-slate-600">
                                 {staffMember.email}
                               </p>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <p className="text-sm text-slate-50">{staffMember.department || 'N/A'}</p>
-                          <p className="text-xs text-slate-400">{staffMember.position || ''}</p>
+                          <p className="text-sm text-slate-70">{staffMember.department || 'N/A'}</p>
+                          <p className="text-xs text-slate-600">{staffMember.position || ''}</p>
                         </td>
                         <td className="px-6 py-4">
                           <Badge className={`${getRoleColor(staffMember.role)} capitalize`}>
@@ -551,7 +551,7 @@ export default function AdminStaffPage() {
                         </td>
                         <td className="px-6 py-4">
                           {staffMember.is_active ? (
-                            <Badge className="bg-green-100 text-green-700 border-green-200">
+                            <Badge className="bg-green-200 text-green-800 border-green-200">
                               <CheckCircle className="h-3 w-3 mr-1" />
                               Active
                             </Badge>
@@ -562,7 +562,7 @@ export default function AdminStaffPage() {
                             </Badge>
                           )}
                         </td>
-                        <td className="px-6 py-4 text-sm text-slate-300">
+                        <td className="px-6 py-4 text-sm text-slate-800">
                           {staffMember.date_of_hire
                             ? new Date(staffMember.date_of_hire).toLocaleDateString()
                             : '--'}
@@ -570,7 +570,7 @@ export default function AdminStaffPage() {
                         <td className="px-6 py-4 text-right">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-300">
+                              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-slate-600 cursor-pointer">
                                 <MoreVertical className="h-4 w-4" />
                                 <span className="sr-only">Open menu</span>
                               </Button>

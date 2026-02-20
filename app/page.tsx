@@ -21,24 +21,24 @@ export default function Home() {
   }, [user, loading, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-slate-50">
+    <div className="min-h-screen bg-white">
       <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 animate-fade-up">
+      <section className="pt-32 pb-20 px-4 animate-fade-up bg-white">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 text-balance">
+          <h1 className="text-5xl md:text-6xl font-bold text-[#43005F] text-balance">
             Staff Management Made Simple
           </h1>
-          <p className="text-xl text-slate-600 text-balance">
+          <p className="text-xl text-gray-600 text-balance">
             Streamline your staff onboarding, training, and handbook management all in one place
           </p>
           <div className="flex justify-center gap-4 pt-4">
             <Link href="/contact">
-              <Button size="lg">Contact Us</Button>
+              <Button size="lg" className="bg-[#43005F] hover:bg-purple-700 text-white">Contact Us</Button>
             </Link>
             <Link href="/features">
-              <Button size="lg" variant="outline" className="bg-transparent">Learn More</Button>
+              <Button size="lg" variant="outline" className="border-[#FE871F] text-[#FE871F] hover:bg-orange-50">Learn More</Button>
             </Link>
           </div>
         </div>
@@ -47,14 +47,14 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 px-4 bg-white animate-fade-up-delay-1">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Key Features</h2>
+          <h2 className="text-3xl font-bold text-[#43005F] mb-12 text-center">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <CheckCircle className="h-6 w-6 text-blue-600" />
+                <div className="w-12 h-12 bg-[#43005F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#43005F]/30">
+                  <CheckCircle className="h-6 w-6 text-[#43005F]" />
                 </div>
-                <CardTitle>Onboarding</CardTitle>
+                <CardTitle className="text-[#43005F]">Onboarding</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -63,12 +63,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Zap className="h-6 w-6 text-green-600" />
+                <div className="w-12 h-12 bg-[#FE871F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#FE871F]/30">
+                  <Zap className="h-6 w-6 text-[#FE871F]" />
                 </div>
-                <CardTitle>Training Modules</CardTitle>
+                <CardTitle className="text-[#43005F]">Training Modules</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -77,12 +77,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
+                <div className="w-12 h-12 bg-[#43005F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#43005F]/30">
+                  <BookOpen className="h-6 w-6 text-[#43005F]" />
                 </div>
-                <CardTitle>Digital Handbook</CardTitle>
+                <CardTitle className="text-[#43005F]">Digital Handbook</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -91,12 +91,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-orange-600" />
+                <div className="w-12 h-12 bg-[#FE871F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#FE871F]/30">
+                  <Users className="h-6 w-6 text-[#FE871F]" />
                 </div>
-                <CardTitle>Staff Management</CardTitle>
+                <CardTitle className="text-[#43005F]">Staff Management</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -105,12 +105,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <CheckCircle className="h-6 w-6 text-red-600" />
+                <div className="w-12 h-12 bg-[#43005F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#43005F]/30">
+                  <CheckCircle className="h-6 w-6 text-[#43005F]" />
                 </div>
-                <CardTitle>HR Records</CardTitle>
+                <CardTitle className="text-[#43005F]">HR Records</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -119,12 +119,12 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4">
-                  <Zap className="h-6 w-6 text-cyan-600" />
+                <div className="w-12 h-12 bg-[#FE871F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#FE871F]/30">
+                  <Zap className="h-6 w-6 text-[#FE871F]" />
                 </div>
-                <CardTitle>Audit & Compliance</CardTitle>
+                <CardTitle className="text-[#43005F]">Audit & Compliance</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -137,16 +137,16 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600 text-white animate-fade-up-delay-2">
+      <section className="py-20 px-4 bg-[#43005F] text-white animate-fade-up-delay-2">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your Staff Management?
           </h2>
-          <p className="text-lg text-blue-100">
+          <p className="text-lg text-orange-100">
             Join companies that trust Nutrihealth Consult for their staff management needs
           </p>
           <Link href="/contact">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="secondary" className="bg-[#FE871F] text-[#43005F] hover:bg-orange-600">
               Contact Us
             </Button>
           </Link>

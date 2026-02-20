@@ -78,15 +78,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-primary flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="p-3 bg-blue-100 rounded-xl">
-              <Shield className="h-8 w-8 text-blue-600" />
+              <Shield className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-slate-900">Staff Portal</CardTitle>
+          <CardTitle className="text-2xl font-bold text-primary">Staff Portal</CardTitle>
           <CardDescription className="text-slate-600">
             Nutrihealth Consult - Sign in to your account
           </CardDescription>
@@ -130,7 +130,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white"
+              className="w-full bg-secondary cursor-pointer hover:bg-scoecondary/40 text-white"
               disabled={isLoading}
             >
               {isLoading ? (

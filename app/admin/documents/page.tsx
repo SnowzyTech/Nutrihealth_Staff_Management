@@ -520,27 +520,27 @@ export default function AdminDocumentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-slate-950 border-b border-slate-800">
+      <div className="bg-gradient-to-r from-[#43005F]/5 to-[#FE871F]/5 border-b border-gray-200">
         <div className="px-3 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-7xl mx-auto">
-          <Link href="/dashboard" className="text-blue-400 hover:text-blue-300 text-sm mb-4 inline-flex items-center gap-1">
+          <Link href="/dashboard" className="text-[#43005F] hover:text-[#320044] text-sm mb-4 inline-flex items-center gap-1">
             <span>← Back to Dashboard</span>
           </Link>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="min-w-0">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-50 flex items-center gap-2">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2">
                 <FileText className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 flex-shrink-0" />
                 <span className="truncate">Document Management</span>
               </h1>
-              <p className="text-slate-400 mt-2 text-xs sm:text-sm lg:text-base">Create and manage onboarding documents</p>
+              <p className="text-gray-600 mt-2 text-xs sm:text-sm lg:text-base">Create and manage onboarding documents</p>
             </div>
             <Dialog open={isDialogOpen} onOpenChange={(open) => {
               setIsDialogOpen(open);
               if (!open) resetForm();
             }}>
               <DialogTrigger asChild>
-                <Button className="gap-2 border bg-slate-950 cursor-pointer">
+                <Button className="gap-2 border bg-[#43005F] hover:bg-[#320044] cursor-pointer text-white">
                   <Plus className="h-4 w-4" />
                   Add Document
                 </Button>
@@ -897,11 +897,11 @@ export default function AdminDocumentsPage() {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
   {/* Search and Filters */}
-  <Card className="mb-8 bg-slate-900">
+  <Card className="mb-8 bg-primary">
   <CardHeader>
   <div className="flex flex-col md:flex-row gap-3">
   <div className="relative flex-1">
-  <Search className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
+  <Search className="absolute left-3 top-2 h-5 w-5 text-slate-400" />
   <Input
   type="text"
   placeholder="Search documents..."
@@ -953,7 +953,7 @@ export default function AdminDocumentsPage() {
             </Card>
           ) : (
             paginatedDocuments.map((doc) => (
-              <Card key={doc.id} className="hover:shadow-md transition-shadow bg-slate-950">
+              <Card key={doc.id} className="hover:shadow-md transition-shadow bg-primary">
                 <CardHeader className="p-4 sm:p-6">
                   <div className="space-y-3">
                     <div className="min-w-0">

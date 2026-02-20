@@ -286,9 +286,9 @@ export default function SubmissionsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">Document Submissions</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold text- mt-3">Document Submissions</h1>
             {stats.pending > 0 && (
-              <Badge className="bg-amber-900/30 text-amber-400 border-amber-700">
+              <Badge className="bg-amber-900/30 text-slate-500 border-amber-700">
                 {stats.pending} Pending
               </Badge>
             )}
@@ -300,7 +300,7 @@ export default function SubmissionsPage() {
           size="sm"
           onClick={fetchSubmissions}
           disabled={isLoading}
-          className="bg-slate-400 self-start"
+          className="bg-slate-400 mt-4 self-start"
         >
           <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
           Refresh
@@ -348,36 +348,37 @@ export default function SubmissionsPage() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-red-800 bg-gradient-to-br from-red-950 to-red-900 shadow-xl shadow-red-900/20">
+        <Card className="border-red-200 bg-gradient-to-br from-red-50 to-red-100 shadow-xl shadow-red-900/10">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-red-200 uppercase tracking-wide">Rejected</p>
-                <p className="text-3xl font-bold text-white mt-1">{stats.rejected}</p>
+                <p className="text-sm font-medium text-red-700 uppercase tracking-wide">Rejected</p>
+                <p className="text-3xl font-bold text-red-900 mt-1">{stats.rejected}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-red-800/50 flex items-center justify-center ring-4 ring-red-900/50">
-                <XCircle className="h-6 w-6 text-red-200" />
+              <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center ring-4 ring-red-50">
+                <XCircle className="h-6 w-6 text-red-700" />
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
+
       {/* Filters */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-gray-200 bg-white shadow-xl">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
               <Input
                 placeholder="Search by name, email, or document..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-slate-600 bg-slate-700 text-slate-50 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                className="pl-10 border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#43005F] focus:ring-2 focus:ring-[#43005F]/20"
               />
             </div>
             <Select value={documentTypeFilter} onValueChange={(value) => setDocumentTypeFilter(value as DocumentTypeFilter)}>
-              <SelectTrigger className="w-full lg:w-44 text-slate-200">
+              <SelectTrigger className="w-full lg:w-44 text-slate-700">
                 <SelectValue placeholder="Document Type" />
               </SelectTrigger>
               <SelectContent>
@@ -388,7 +389,7 @@ export default function SubmissionsPage() {
               </SelectContent>
             </Select>
             <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as StatusFilter)}>
-              <SelectTrigger className="w-full lg:w-44 text-slate-300">
+              <SelectTrigger className="w-full lg:w-44 text-slate-700">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -401,7 +402,7 @@ export default function SubmissionsPage() {
           </div>
           <div className="flex flex-col md:flex-row gap-4 mt-4">
             <Select value={staffFilter} onValueChange={setStaffFilter}>
-              <SelectTrigger className="w-full md:w-56 text-slate-300 ">
+              <SelectTrigger className="w-full md:w-56 text-slate-700 ">
                 <SelectValue placeholder="Filter by Staff" />
               </SelectTrigger>
               <SelectContent>
@@ -414,7 +415,7 @@ export default function SubmissionsPage() {
               </SelectContent>
             </Select>
             <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
-              <SelectTrigger className="w-full md:w-56 text-slate-200">
+              <SelectTrigger className="w-full md:w-56 text-slate-700">
                 <SelectValue placeholder="Filter by Department" />
               </SelectTrigger>
               <SelectContent>
@@ -429,7 +430,7 @@ export default function SubmissionsPage() {
             {hasActiveFilters && (
               <Button
                 variant="outline"
-                className="bg-slate-300"
+                className="bg-slate-700"
                 onClick={() => {
                   setStaffFilter('all');
                   setDepartmentFilter('all');
@@ -447,12 +448,12 @@ export default function SubmissionsPage() {
       </Card>
 
       {/* Submissions Table */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
-        <CardHeader className="border-b border-slate-700">
+      <Card className="border-gray-200 bg-white shadow-xl">
+        <CardHeader className="border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-lg text-slate-50">Submissions</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardTitle className="text-lg text-gray-900">Submissions</CardTitle>
+              <CardDescription className="text-gray-600">
                 {filteredSubmissions.length !== submissions.length
                   ? `Showing ${filteredSubmissions.length} of ${submissions.length} submissions`
                   : `${submissions.length} total submissions`}
@@ -486,14 +487,14 @@ export default function SubmissionsPage() {
               <div className="hidden md:block overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="bg-slate-900/50  border-b border-slate-700">
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Staff Member</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Department</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Document</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Type</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Date</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Status</TableHead>
-                      <TableHead className="text-xs font-semibold text-slate-300 uppercase tracking-wide text-right">Actions</TableHead>
+                    <TableRow className="bg-primary border-b border-gray-200">
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Staff Member</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Department</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Document</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Type</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Date</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide">Status</TableHead>
+                      <TableHead className="text-xs font-semibold text-gray-100 uppercase tracking-wide text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -501,26 +502,26 @@ export default function SubmissionsPage() {
                       <TableRow key={submission.id} className="hover:bg-slate-750  border-b border-slate-700 transition-colors">
                         <TableCell>
                           <div className="pl-3 pt-1">
-                            <p className="font-medium text-slate-50">
+                            <p className="font-medium text-slate-700">
                               {submission.user?.first_name || 'Unknown'}{' '}
                               {submission.user?.last_name || 'User'}
                             </p>
-                            <p className="text-sm text-slate-400">
+                            <p className="text-sm text-slate-600">
                               {submission.user?.email || 'No email'}
                             </p>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm text-slate-300">
+                          <span className="text-sm text-slate-600">
                             {submission.user?.department || '-'}
                           </span>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <p className="font-medium text-slate-300">
+                            <p className="font-medium text-slate-600">
                               {submission.document?.title || 'Unknown Document'}
                             </p>
-                            <p className="text-sm text-slate-500 line-clamp-1">
+                            <p className="text-sm text-slate-600 line-clamp-1">
                               {submission.document?.description || 'No description'}
                             </p>
                           </div>

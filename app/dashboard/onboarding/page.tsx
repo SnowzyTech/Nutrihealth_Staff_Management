@@ -146,15 +146,13 @@ export default function OnboardingPage() {
   const getStatusBadge = (status: DocumentStatus) => {
     switch (status) {
       case 'approved':
-        return <Badge className="bg-green-900/30 text-green-400 border-green-500/30">Approved</Badge>;
+        return <Badge className="bg-green-600 text-white text-xs">Approved</Badge>;
       case 'submitted':
-        return <Badge className="bg-blue-900/30 text-blue-400 border-blue-500/30">Pending Review</Badge>;
-      case 'in_progress':
-        return <Badge className="bg-amber-900/30 text-amber-400 border-amber-500/30">In Progress</Badge>;
+        return <Badge className="bg-[#FE871F] text-white text-xs">Under Review</Badge>;
       case 'locked':
-        return <Badge className="bg-slate-600 text-slate-400 border-slate-500/30">Locked</Badge>;
+        return <Badge className="bg-gray-300 text-gray-700 text-xs"><Lock className="h-3 w-3 mr-1" />Locked</Badge>;
       default:
-        return <Badge variant="outline" className="bg-transparent text-slate-400 border-slate-600">Not Started</Badge>;
+        return <Badge className="bg-gray-300 text-gray-700 text-xs">Not Started</Badge>;
     }
   };
 
@@ -214,7 +212,7 @@ export default function OnboardingPage() {
     switch (doc.status) {
       case 'approved':
         return (
-          <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="p-3 bg-green-50 rounded-lg border border-green-300">
             <p className="text-sm text-green-800 flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
               Approved on {new Date(doc.completed_at || '').toLocaleDateString()}
@@ -223,8 +221,8 @@ export default function OnboardingPage() {
         );
       case 'submitted':
         return (
-          <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-800 flex items-center gap-2">
+          <div className="p-3 bg-orange-50 rounded-lg border border-orange-300">
+            <p className="text-sm text-orange-800 flex items-center gap-2">
               <Clock className="h-4 w-4 flex-shrink-0" />
               {"Awaiting admin review. You'll be notified once approved."}
             </p>
@@ -239,48 +237,48 @@ export default function OnboardingPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">Onboarding Documents</h1>
-        <p className="text-slate-300 mt-1">Complete your onboarding requirements</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-[#43005F]">Onboarding Documents</h1>
+        <p className="text-gray-600 mt-1">Complete your onboarding requirements</p>
       </div>
 
       {/* Info Notice */}
-      <Alert className="border-blue-500/30 bg-blue-900/20">
-        <AlertCircle className="h-5 w-5 text-blue-400" />
-        <AlertDescription className="text-blue-300">
+      <Alert className="border-[#FE871F]/30 bg-orange-50">
+        <AlertCircle className="h-5 w-5 text-[#FE871F]" />
+        <AlertDescription className="text-[#43005F]">
           <span className="font-semibold">Complete all documents below.</span>{' '}
           You can open, review, and submit any document in any order. Once submitted, your admin will review and approve or request changes.
         </AlertDescription>
       </Alert>
 
       {/* Progress Card */}
-      <Card className="bg-slate-700 border-slate-600 shadow-xl">
+      <Card className="bg-white border-gray-200 shadow-xl">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-sm font-medium text-slate-400 uppercase tracking-wide">Onboarding Progress</p>
-              <p className="text-2xl font-bold text-slate-50 mt-1">
-                {approvedCount} <span className="text-base font-normal text-slate-400">of {totalCount} completed</span>
+              <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">Onboarding Progress</p>
+              <p className="text-2xl font-bold text-[#43005F] mt-1">
+                {approvedCount} <span className="text-base font-normal text-gray-600">of {totalCount} completed</span>
               </p>
             </div>
             <div className="text-right">
-              <p className="text-3xl font-bold text-blue-400">{Math.round(progressPercentage)}%</p>
+              <p className="text-3xl font-bold text-[#FE871F]">{Math.round(progressPercentage)}%</p>
             </div>
           </div>
-          <Progress value={progressPercentage} className="h-3 bg-slate-800" />
+          <Progress value={progressPercentage} className="h-3 bg-gray-200" />
         </CardContent>
       </Card>
 
       {/* All Complete Celebration */}
       {allComplete && (
-        <Card className="border-green-500/30 bg-green-900/20 shadow-xl">
+        <Card className="border-green-300 bg-green-50 shadow-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-green-600/20 border border-green-500/30 flex items-center justify-center flex-shrink-0">
-                <PartyPopper className="h-7 w-7 text-green-400" />
+              <div className="h-14 w-14 rounded-full bg-green-100 border border-green-300 flex items-center justify-center flex-shrink-0">
+                <PartyPopper className="h-7 w-7 text-green-600" />
               </div>
               <div>
-                <h3 className="font-bold text-green-300 text-lg">Onboarding Complete!</h3>
-                <p className="text-green-400 mt-1">
+                <h3 className="font-bold text-green-800 text-lg">Onboarding Complete!</h3>
+                <p className="text-green-700 mt-1">
                   Congratulations! You have successfully completed all onboarding documents.
                 </p>
               </div>
@@ -291,25 +289,25 @@ export default function OnboardingPage() {
 
       {/* Documents List */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-slate-50">Required Documents</h2>
+        <h2 className="text-lg font-semibold text-[#43005F]">Required Documents</h2>
         {documents.length === 0 ? (
-          <Card className="bg-slate-700 border-slate-600 shadow-xl">
+          <Card className="bg-white border-gray-200 shadow-xl">
             <CardContent className="py-16 text-center">
-              <div className="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-4">
-                <FileText className="h-6 w-6 text-slate-500" />
+              <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <FileText className="h-6 w-6 text-gray-400" />
               </div>
-              <p className="text-slate-50 font-medium">No onboarding documents available yet</p>
-              <p className="text-slate-400 text-sm mt-1">Please check back later.</p>
+              <p className="text-[#43005F] font-medium">No onboarding documents available yet</p>
+              <p className="text-gray-600 text-sm mt-1">Please check back later.</p>
             </CardContent>
           </Card>
         ) : (
           documents.map((doc, index) => (
             <Card
               key={doc.id}
-              className={`bg-slate-700 border-slate-600 shadow-xl transition-all ${
-                doc.status === 'approved' ? 'border-green-500/30 bg-green-900/20' :
+              className={`bg-white border-gray-200 shadow-xl transition-all ${
+                doc.status === 'approved' ? 'border-green-300 bg-green-50' :
                 doc.status === 'locked' ? 'opacity-60' :
-                doc.status === 'submitted' ? 'border-blue-500/30 bg-blue-900/20' : ''
+                doc.status === 'submitted' ? 'border-orange-300 bg-orange-50' : ''
               }`}
             >
               <CardContent className="p-6">
@@ -317,9 +315,9 @@ export default function OnboardingPage() {
                   {/* Step Number */}
                   <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
                     doc.status === 'approved' ? 'bg-green-600 text-white' :
-                    doc.status === 'submitted' ? 'bg-blue-600 text-white' :
-                    doc.status === 'locked' ? 'bg-slate-600 text-slate-400' :
-                    'bg-slate-600 text-slate-50'
+                    doc.status === 'submitted' ? 'bg-[#FE871F] text-white' :
+                    doc.status === 'locked' ? 'bg-gray-300 text-gray-600' :
+                    'bg-[#43005F] text-white'
                   }`}>
                     {doc.status === 'approved' ? (
                       <CheckCircle2 className="h-5 w-5" />
@@ -331,13 +329,13 @@ export default function OnboardingPage() {
                   {/* Document Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="font-semibold text-slate-50">{doc.title}</h3>
+                      <h3 className="font-semibold text-[#43005F]">{doc.title}</h3>
                       {getStatusBadge(doc.status)}
                       {doc.is_required && (
-                        <Badge className="bg-red-900/30 text-red-400 border-red-500/30 text-xs">Required</Badge>
+                        <Badge className="bg-red-100 text-red-700 border-red-300 text-xs">Required</Badge>
                       )}
                     </div>
-                    <p className="text-sm text-slate-300 mt-1">{doc.description}</p>
+                    <p className="text-sm text-gray-600 mt-1">{doc.description}</p>
 
                     {/* Status Message */}
                     {getStatusMessage(doc) && (

@@ -62,41 +62,41 @@ export default function FeaturesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-blue-50 to-white animate-fade-up">
+      <section className="pt-32 pb-20 px-4 bg-white animate-fade-up">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 text-balance">
+          <h1 className="text-5xl md:text-6xl font-bold text-[#43005F] text-balance">
             Powerful Features for Staff Management
           </h1>
-          <p className="text-xl text-slate-600 text-balance">
+          <p className="text-xl text-gray-600 text-balance">
             Everything you need to manage onboarding, training, and staff development in one platform
           </p>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 px-4 animate-fade-up-delay-1">
+      <section className="py-20 px-4 animate-fade-up-delay-1 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => {
               const Icon = feature.icon;
               return (
-                <Card key={feature.title} className="hover:shadow-lg transition-shadow">
+                <Card key={feature.title} className="border-gray-200 hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                      <Icon className="h-6 w-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-[#43005F]/10 rounded-lg flex items-center justify-center mb-4 border border-[#43005F]/30">
+                      <Icon className="h-6 w-6 text-[#43005F]" />
                     </div>
-                    <CardTitle>{feature.title}</CardTitle>
+                    <CardTitle className="text-[#43005F]">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <CardDescription>{feature.description}</CardDescription>
                     <ul className="space-y-2">
                       {feature.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-center gap-2 text-sm text-slate-600">
-                          <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
+                        <li key={benefit} className="flex items-center gap-2 text-sm text-gray-600">
+                          <CheckCircle2 className="h-4 w-4 text-[#FE871F] flex-shrink-0" />
                           {benefit}
                         </li>
                       ))}
@@ -112,51 +112,51 @@ export default function FeaturesPage() {
       {/* Feature Highlights */}
       <section className="py-20 px-4 bg-white animate-fade-up-delay-2">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">Why Choose Us?</h2>
+          <h2 className="text-3xl font-bold text-center text-[#43005F] mb-12">Why Choose Us?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div className="flex gap-4">
-                <Heart className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <Heart className="h-6 w-6 text-[#43005F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">User-Friendly Interface</h3>
-                  <p className="text-slate-600 text-sm">Intuitive design that requires minimal training</p>
+                  <h3 className="font-bold text-[#43005F]">User-Friendly Interface</h3>
+                  <p className="text-gray-600 text-sm">Intuitive design that requires minimal training</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <Lock className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <Lock className="h-6 w-6 text-[#FE871F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">Enterprise Security</h3>
-                  <p className="text-slate-600 text-sm">Bank-level encryption and compliance standards</p>
+                  <h3 className="font-bold text-[#43005F]">Enterprise Security</h3>
+                  <p className="text-gray-600 text-sm">Bank-level encryption and compliance standards</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <Clock className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <Clock className="h-6 w-6 text-[#43005F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">24/7 Support</h3>
-                  <p className="text-slate-600 text-sm">Dedicated support team ready to help anytime</p>
+                  <h3 className="font-bold text-[#43005F]">24/7 Support</h3>
+                  <p className="text-gray-600 text-sm">Dedicated support team ready to help anytime</p>
                 </div>
               </div>
             </div>
             <div className="space-y-6">
               <div className="flex gap-4">
-                <TrendingUp className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <TrendingUp className="h-6 w-6 text-[#FE871F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">Real-Time Analytics</h3>
-                  <p className="text-slate-600 text-sm">Track progress with detailed insights and metrics</p>
+                  <h3 className="font-bold text-[#43005F]">Real-Time Analytics</h3>
+                  <p className="text-gray-600 text-sm">Track progress with detailed insights and metrics</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <Users className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <Users className="h-6 w-6 text-[#43005F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">Seamless Integration</h3>
-                  <p className="text-slate-600 text-sm">Works with your existing tools and systems</p>
+                  <h3 className="font-bold text-[#43005F]">Seamless Integration</h3>
+                  <p className="text-gray-600 text-sm">Works with your existing tools and systems</p>
                 </div>
               </div>
               <div className="flex gap-4">
-                <Zap className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <Zap className="h-6 w-6 text-[#FE871F] flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-slate-900">Scalable Solution</h3>
-                  <p className="text-slate-600 text-sm">Grows with your organization</p>
+                  <h3 className="font-bold text-[#43005F]">Scalable Solution</h3>
+                  <p className="text-gray-600 text-sm">Grows with your organization</p>
                 </div>
               </div>
             </div>
@@ -165,16 +165,16 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600 text-white animate-fade-up-delay-3">
+      <section className="py-20 px-4 bg-[#43005F] text-white animate-fade-up-delay-3">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold">
             Ready to Transform Your Staff Management?
           </h2>
-          <p className="text-lg text-blue-100">
+          <p className="text-lg text-orange-100">
             Join companies that trust Nutrihealth Consult for their staff management needs
           </p>
           <Link href="/contact">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="secondary" className="bg-[#FE871F] text-[#43005F] hover:bg-orange-600">
               Contact Us
             </Button>
           </Link>

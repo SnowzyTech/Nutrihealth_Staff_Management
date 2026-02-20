@@ -302,7 +302,7 @@ export default function HRRecordsPage() {
   }
 
   const renderRecordCard = (record: HRRecord) => (
-    <Card key={record.id} className="bg-slate-700 border-slate-600 shadow-xl hover:shadow-xl transition-shadow">
+    <Card key={record.id} className="bg-white border-gray-200 shadow-xl hover:shadow-xl transition-shadow">
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
           <div className={`h-12 w-12 rounded-lg ${getRecordTypeIconColor(record.record_type)} flex items-center justify-center flex-shrink-0`}>
@@ -310,33 +310,33 @@ export default function HRRecordsPage() {
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
-              <h3 className="font-semibold text-slate-50">{getRecordTypeLabel(record.record_type)}</h3>
+              <h3 className="font-semibold text-[#43005F]">{getRecordTypeLabel(record.record_type)}</h3>
               <Badge className={`${getRecordTypeColor(record.record_type)} border`}>
                 {getRecordTypeLabel(record.record_type)}
               </Badge>
               {record.acknowledged_at && (
-                <Badge className="bg-green-900/30 text-green-400 border-green-500/30 gap-1">
+                <Badge className="bg-green-100 text-green-800 border-green-300 gap-1">
                   <CheckCircle2 className="h-3 w-3" />
                   Acknowledged
                 </Badge>
               )}
               {record.visibility === 'private' && (
-                <Lock className="h-4 w-4 text-slate-500" />
+                <Lock className="h-4 w-4 text-gray-400" />
               )}
             </div>
-            <p className="text-sm text-slate-400 mb-3">
+            <p className="text-sm text-gray-600 mb-3">
               {new Date(record.created_at).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric',
               })}
             </p>
 
             {record.content && (
-              <p className="text-sm text-slate-300 mb-3">{record.content}</p>
+              <p className="text-sm text-gray-600 mb-3">{record.content}</p>
             )}
 
             {/* PDF Preview */}
             {previewRecordId === record.id && record.file_url && (
-              <div className="border border-slate-600 rounded-lg overflow-hidden bg-slate-800 mb-3">
+              <div className="border border-gray-200 rounded-lg overflow-hidden bg-gray-50 mb-3">
                 <iframe
                   src={`${record.file_url}#toolbar=1&navpanes=0&scrollbar=1`}
                   className="w-full h-[400px] rounded-lg"
@@ -349,13 +349,13 @@ export default function HRRecordsPage() {
             <div className="flex flex-wrap gap-2">
               {record.file_url && (
                 <>
-                  <Button onClick={() => handleDownloadPDF(record)} variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-600">
+                  <Button onClick={() => handleDownloadPDF(record)} variant="outline" size="sm" className="bg-white border-gray-200 text-[#43005F] hover:bg-gray-100">
                     <FileDown className="h-4 w-4 mr-2" />
                     Download PDF
                   </Button>
                   <Button
                     onClick={() => setPreviewRecordId(previewRecordId === record.id ? null : record.id)}
-                    variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-600"
+                    variant="outline" size="sm" className="bg-white border-gray-200 text-[#43005F] hover:bg-gray-100"
                   >
                     {previewRecordId === record.id ? (
                       <><EyeOff className="h-4 w-4 mr-2" />Hide PDF</>
@@ -375,15 +375,15 @@ export default function HRRecordsPage() {
 
             {/* Acknowledgment info */}
             {record.acknowledged_at && (
-              <div className="p-3 bg-green-900/20 rounded-lg border border-green-500/30 mt-3 space-y-2">
-                <p className="text-sm text-green-300 font-medium">
+              <div className="p-3 bg-green-50 rounded-lg border border-green-300 mt-3 space-y-2">
+                <p className="text-sm text-green-800 font-medium">
                   Acknowledged on {new Date(record.acknowledged_at).toLocaleDateString('en-US', {
                     year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',
                   })}
                 </p>
                 {record.acknowledgment_file_url && (
                   <a href={record.acknowledgment_file_url} target="_blank" rel="noopener noreferrer"
-                    className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                    className="text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1">
                     <FileText className="h-3 w-3" />
                     View submitted document
                     <ExternalLink className="h-3 w-3" />
@@ -391,8 +391,8 @@ export default function HRRecordsPage() {
                 )}
                 {record.signature_url && (
                   <div>
-                    <p className="text-xs text-green-300 mb-1">Signature:</p>
-                    <img src={record.signature_url || "/placeholder.svg"} alt="Signature" className="max-w-[200px] h-auto border border-green-500/30 rounded bg-slate-800 p-1" />
+                    <p className="text-xs text-green-800 mb-1">Signature:</p>
+                    <img src={record.signature_url || "/placeholder.svg"} alt="Signature" className="max-w-[200px] h-auto border border-green-300 rounded bg-white p-1" />
                   </div>
                 )}
               </div>
@@ -407,28 +407,28 @@ export default function HRRecordsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">My HR Records</h1>
-        <p className="text-slate-300 mt-1">Your personal HR documents and records</p>
+        <h1 className="text-2xl lg:text-3xl font-bold text-[#43005F]">My HR Records</h1>
+        <p className="text-gray-600 mt-1">Your personal HR documents and records</p>
       </div>
 
       {records.length === 0 ? (
-        <Card className="bg-slate-700 border-slate-600 shadow-xl">
+        <Card className="bg-white border-gray-200 shadow-xl">
           <CardContent className="py-16 text-center">
-            <div className="h-12 w-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-4">
-              <FileText className="h-6 w-6 text-slate-500" />
+            <div className="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+              <FileText className="h-6 w-6 text-gray-400" />
             </div>
-            <p className="text-slate-50 font-medium">No HR records available yet</p>
-            <p className="text-slate-400 text-sm mt-1">Your HR documents will appear here when issued</p>
+            <p className="text-[#43005F] font-medium">No HR records available yet</p>
+            <p className="text-gray-600 text-sm mt-1">Your HR documents will appear here when issued</p>
           </CardContent>
         </Card>
       ) : (
         <Tabs defaultValue="timeline" className="space-y-6">
-          <TabsList className="bg-slate-700 border border-slate-600 p-1">
-            <TabsTrigger value="timeline" className="flex items-center gap-2 data-[state=active]:bg-slate-800 data-[state=active]:text-slate-50">
+          <TabsList className="bg-gray-100 border border-gray-200 p-1">
+            <TabsTrigger value="timeline" className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-[#43005F]">
               <Calendar className="h-4 w-4" />
               Timeline
             </TabsTrigger>
-            <TabsTrigger value="category" className="flex items-center gap-2 data-[state=active]:bg-slate-800 data-[state=active]:text-slate-50">
+            <TabsTrigger value="category" className="flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:text-[#43005F]">
               <ClipboardList className="h-4 w-4" />
               By Category
             </TabsTrigger>
@@ -441,11 +441,11 @@ export default function HRRecordsPage() {
           <TabsContent value="category" className="space-y-8">
             {Object.entries(recordsByType).map(([type, typeRecords]) => (
               <div key={type}>
-                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-600">
+                <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200">
                   <Badge className={`${getRecordTypeColor(type)} border`}>
                     {typeRecords.length}
                   </Badge>
-                  <h3 className="text-lg font-semibold text-slate-50">
+                  <h3 className="text-lg font-semibold text-[#43005F]">
                     {getRecordTypeLabel(type)}
                   </h3>
                 </div>

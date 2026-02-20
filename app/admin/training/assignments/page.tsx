@@ -116,19 +116,19 @@ export default function AdminAssignmentsPage() {
       <div className="flex flex-col gap-4">
         <div className="flex items-start gap-2 sm:gap-3">
           <Link href="/admin/training" className="flex-shrink-0 mt-1">
-            <Button variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-700 h-8 w-8 p-0">
+            <Button variant="outline" size="sm" className="bg-secondary hover:bg-secondary/80 cursor-pointer border-slate-600 text-slate-300 h-8 w-8 p-0">
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
           <div className="min-w-0 flex-1">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-50">Training Assignments</h1>
-            <p className="text-slate-400 mt-1 text-xs sm:text-sm">{assignments.length} total assignments</p>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary">Training Assignments</h1>
+            <p className="text-slate-600 mt-1 text-xs sm:text-sm">{assignments.length} total assignments</p>
           </div>
           <Button
             variant="outline"
             size="sm"
             onClick={fetchAssignments}
-            className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-700 flex-shrink-0 h-8 text-xs sm:text-sm"
+            className="bg-secondary border-secondary text-slate-300 hover:bg-slate-700 flex-shrink-0 h-8 text-xs sm:text-sm"
           >
             <RefreshCw className="h-3.5 w-3.5 sm:mr-1.5" />
             <span className="hidden sm:inline">Refresh</span>
@@ -137,7 +137,7 @@ export default function AdminAssignmentsPage() {
       </div>
 
       {/* Search */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-gray-100 bg-primary shadow-xl">
         <CardContent className="p-3 sm:p-6">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
@@ -146,7 +146,7 @@ export default function AdminAssignmentsPage() {
               placeholder="Search by staff name or module..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 border-slate-600 bg-slate-700 text-slate-50 placeholder:text-slate-400 text-sm"
+              className="pl-10 border-slate-600 bg-primary text-slate-50 placeholder:text-slate-400 text-sm"
             />
           </div>
         </CardContent>
@@ -154,19 +154,19 @@ export default function AdminAssignmentsPage() {
 
       {/* Assignments List */}
       {filteredAssignments.length === 0 ? (
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-gray-200 bg-primary shadow-xl">
           <CardContent className="py-16 text-center">
             <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center mx-auto mb-4">
-              <Users className="h-6 w-6 text-slate-500" />
+              <Users className="h-6 w-6 text-orange-200" />
             </div>
             <p className="text-slate-50 font-medium">No assignments found</p>
-            <p className="text-slate-400 text-sm mt-1">Assign training modules to staff from the training page.</p>
+            <p className="text-slate-300 text-sm mt-1">Assign training modules to staff from the training page.</p>
           </CardContent>
         </Card>
       ) : (
         <div className="space-y-3">
           {filteredAssignments.map((assignment) => (
-            <Card key={assignment.id} className="border-slate-700 bg-slate-800 shadow-lg overflow-hidden">
+            <Card key={assignment.id} className="border-gray-200 bg-primary shadow-lg overflow-hidden">
               <CardContent className="p-3 sm:p-4">
                 <div className="flex items-start justify-between gap-2 sm:gap-4">
                   <div className="flex-1 min-w-0">

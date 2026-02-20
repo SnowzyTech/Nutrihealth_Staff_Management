@@ -189,7 +189,7 @@ export default function TrainingModulePage() {
       <div className="space-y-4">
         <Link
           href="/dashboard/training"
-          className="text-blue-400 hover:text-blue-300 text-sm inline-flex items-center gap-1"
+          className="text-blue-400 hover:text-blue-300 text-sm inline-flex items-center gap-1 cursor-pointer border p-2"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Training</span>
@@ -215,7 +215,7 @@ export default function TrainingModulePage() {
       {/* Back button */}
       <Link
         href="/dashboard/training"
-        className="text-blue-400 hover:text-blue-300 text-sm inline-flex items-center gap-1"
+        className="text-blue-400 hover:text-blue-300 text-sm inline-flex items-center bg-orange-200 gap-1 cursor-pointer border p-2"
       >
         <ArrowLeft className="h-4 w-4" />
         <span>Back to Training</span>
@@ -224,8 +224,8 @@ export default function TrainingModulePage() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">{module.title}</h1>
-          <p className="text-slate-300 mt-2">{module.description}</p>
+          <h1 className="text-2xl lg:text-3xl font-bold text-primary">{module.title}</h1>
+          <p className="text-slate-600 mt-2">{module.description}</p>
           <div className="flex items-center gap-3 mt-3 flex-wrap">
             {module.duration_hours > 0 && (
               <div className="flex items-center gap-1 text-sm text-slate-400">
@@ -279,7 +279,7 @@ export default function TrainingModulePage() {
 
       {/* YouTube Player */}
       {hasYouTube && (
-        <Card className="bg-slate-800 border-slate-700 shadow-xl overflow-hidden">
+        <Card className="bg-primary border-slate-700 shadow-xl overflow-hidden">
           <CardContent className="p-0">
             <YouTubePlayer
               videoId={module.youtube_video_id!}
@@ -290,7 +290,7 @@ export default function TrainingModulePage() {
             />
           </CardContent>
           <div className="px-4 py-3 border-t border-slate-700">
-            <VideoProgressBar percentage={currentVideoPct} />
+            <VideoProgressBar percentage={currentVideoPct} className="text-orange-2000" />
           </div>
         </Card>
       )}
@@ -327,7 +327,7 @@ export default function TrainingModulePage() {
 
       {/* Progress & Completion Section */}
       {!isCompleted ? (
-        <Card className="bg-slate-800 border-slate-700 shadow-xl">
+        <Card className="bg-primary border-gray-300 shadow-xl">
           <CardHeader>
             <CardTitle className="text-slate-50">
               {!isStarted ? 'Start This Module' : 'Complete This Module'}

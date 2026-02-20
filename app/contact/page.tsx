@@ -35,9 +35,9 @@ export default function ContactPage() {
       <PublicNavbar />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20 pt-32 animate-fade-up opacity-0 [animation-delay:200ms] [animation-fill-mode:forwards]">
+      <section className="bg-white py-20 pt-32 animate-fade-up opacity-0 [animation-delay:200ms] [animation-fill-mode:forwards]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Get in Touch</h1>
+          <h1 className="text-5xl font-bold text-[#43005F] mb-6">Get in Touch</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Have questions about Nutrihealth Consult? We would love to hear from you. Send us a message
             and we will respond as soon as possible.
@@ -46,16 +46,16 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Info Section */}
-      <section className="py-16 animate-fade-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
+      <section className="py-16 animate-fade-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards] bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {contacts.map((contact) => {
               const Icon = contact.icon;
               return (
-                <Card key={contact.title}>
+                <Card key={contact.title} className="border-gray-200">
                   <CardHeader>
-                    <Icon className="h-8 w-8 text-blue-600 mb-2" />
-                    <CardTitle>{contact.title}</CardTitle>
+                    <Icon className="h-8 w-8 text-[#43005F] mb-2" />
+                    <CardTitle className="text-[#43005F]">{contact.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="font-semibold text-gray-900">{contact.value}</p>
@@ -68,40 +68,40 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="max-w-2xl mx-auto">
-            <Card>
+            <Card className="border-gray-200">
               <CardHeader>
-                <CardTitle>Send us a Message</CardTitle>
+                <CardTitle className="text-[#43005F]">Send us a Message</CardTitle>
               </CardHeader>
               <CardContent>
                 <form className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input id="name" placeholder="Your name" required />
+                      <Label htmlFor="name" className="text-[#43005F]">Full Name</Label>
+                      <Input id="name" placeholder="Your name" required className="border-gray-300 focus:border-[#43005F]" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" required />
+                      <Label htmlFor="email" className="text-[#43005F]">Email Address</Label>
+                      <Input id="email" type="email" placeholder="your@email.com" required className="border-gray-300 focus:border-[#43005F]" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="How can we help?" required />
+                    <Label htmlFor="subject" className="text-[#43005F]">Subject</Label>
+                    <Input id="subject" placeholder="How can we help?" required className="border-gray-300 focus:border-[#43005F]" />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message" className="text-[#43005F]">Message</Label>
                     <textarea
                       id="message"
                       placeholder="Tell us more about your inquiry..."
                       rows={6}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FE871F]"
                       required
                     />
                   </div>
 
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" className="w-full bg-[#43005F] hover:bg-purple-700 text-white">
                     Send Message
                   </Button>
                 </form>
@@ -112,10 +112,10 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-gray-50 animate-fade-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
+      <section className="py-16 bg-white animate-fade-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-[#43005F] mb-4">Frequently Asked Questions</h2>
             <p className="text-gray-600 text-lg">Find answers to common questions</p>
           </div>
 
@@ -138,9 +138,9 @@ export default function ContactPage() {
                 a: 'Yes, we provide 24/7 email support and phone support during business hours.',
               },
             ].map((faq, i) => (
-              <Card key={i}>
+              <Card key={i} className="border-gray-200">
                 <CardHeader>
-                  <CardTitle className="text-lg">{faq.q}</CardTitle>
+                  <CardTitle className="text-lg text-[#43005F]">{faq.q}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">{faq.a}</p>

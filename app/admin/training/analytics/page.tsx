@@ -113,20 +113,20 @@ export default function AdminTrainingAnalyticsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link href="/admin/training">
-            <Button variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-700">
-              <ArrowLeft className="h-4 w-4" />
+            <Button variant="outline" size="sm" className="bg-primary border-slate-600 text-slate-300 hover:bg-slate-700">
+              <ArrowLeft className="h-4 w-4 " />
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-slate-50">Training Analytics</h1>
-            <p className="text-slate-400 mt-1">Overview of staff training progress and engagement</p>
+            <h1 className="text-2xl lg:text-3xl font-bold text-primary">Training Analytics</h1>
+            <p className="text-slate-600 mt-1">Overview of staff training progress and engagement</p>
           </div>
         </div>
         <Button
           variant="outline"
           size="sm"
           onClick={fetchAnalytics}
-          className="bg-transparent self-start border-slate-600 text-slate-300 hover:bg-slate-700"
+          className="bg-transparent self-start border-slate-600 text-slate-600 cursor-pointer hover:bg-slate-300"
         >
           <RefreshCw className="h-4 w-4 mr-2" />
           Refresh
@@ -183,40 +183,40 @@ export default function AdminTrainingAnalyticsPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-gray-200 bg-primary shadow-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-3">
               <TrendingUp className="h-5 w-5 text-green-400" />
               <p className="text-sm font-medium text-slate-300">Completion Rate</p>
             </div>
             <p className="text-3xl font-bold text-slate-50 mb-2">{analytics.completionRate}%</p>
-            <Progress value={analytics.completionRate} className="h-2" />
+            <Progress value={analytics.completionRate} className="h-2 bg-white" />
           </CardContent>
         </Card>
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-gray-200 bg-primary shadow-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-3">
               <BarChart3 className="h-5 w-5 text-blue-400" />
               <p className="text-sm font-medium text-slate-300">Average Score</p>
             </div>
             <p className="text-3xl font-bold text-slate-50 mb-2">{analytics.avgScore}%</p>
-            <Progress value={analytics.avgScore} className="h-2" />
+            <Progress value={analytics.avgScore} className="h-2 bg-white" />
           </CardContent>
         </Card>
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-gray-200 bg-primary shadow-xl">
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-3">
               <Eye className="h-5 w-5 text-rose-400" />
               <p className="text-sm font-medium text-slate-300">Avg Video Watched</p>
             </div>
             <p className="text-3xl font-bold text-slate-50 mb-2">{analytics.avgWatchPercentage}%</p>
-            <Progress value={analytics.avgWatchPercentage} className="h-2" />
+            <Progress value={analytics.avgWatchPercentage} className="h-2 bg-white" />
           </CardContent>
         </Card>
       </div>
 
       {/* Module Performance */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-gray-200 bg-primary shadow-xl">
         <CardHeader>
           <CardTitle className="text-slate-50">Module Performance</CardTitle>
         </CardHeader>
@@ -260,7 +260,7 @@ export default function AdminTrainingAnalyticsPage() {
       </Card>
 
       {/* Recent Completions */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-gray-300 bg-primary shadow-xl">
         <CardHeader>
           <CardTitle className="text-slate-50">Recent Completions</CardTitle>
         </CardHeader>

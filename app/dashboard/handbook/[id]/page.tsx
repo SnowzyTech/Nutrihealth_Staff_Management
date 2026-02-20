@@ -177,20 +177,20 @@ function ChapterContent() {
       )}
 
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm -mx-4 lg:-mx-8 px-4 lg:px-8 py-3 border-b border-slate-700/50 mb-6">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm -mx-4 lg:-mx-8 px-4 lg:px-8 py-3 border-b border-gray-200 mb-6">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <Link href="/dashboard/handbook">
-              <Button variant="outline" size="sm" className="bg-transparent border-slate-700 text-slate-400 hover:bg-slate-800 hover:text-slate-200 h-8 w-8 p-0 flex-shrink-0">
+              <Button variant="outline" size="sm" className="bg-white border-gray-200 text-[#43005F] hover:bg-gray-100 hover:text-[#320044] h-8 w-8 p-0 flex-shrink-0">
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             </Link>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
                 {chapter.number !== "0" && (
-                  <span className="text-[10px] font-mono text-amber-500/70">Ch.{chapter.number}</span>
+                  <span className="text-[10px] font-mono text-[#FE871F]/70">Ch.{chapter.number}</span>
                 )}
-                <h1 className="text-sm sm:text-base font-semibold text-slate-50 truncate">{chapter.title}</h1>
+                <h1 className="text-sm sm:text-base font-semibold text-[#43005F] truncate">{chapter.title}</h1>
               </div>
             </div>
           </div>
@@ -198,7 +198,7 @@ function ChapterContent() {
             variant="outline"
             size="sm"
             onClick={() => setShowToc(true)}
-            className="bg-transparent border-slate-700 text-slate-400 hover:bg-slate-800 h-8 text-xs lg:hidden flex-shrink-0"
+            className="bg-primary border-gray-200 cursor-pointer text-slate-100 hover:text-slate-300 hover:bg-primary/90 h-8 text-xs lg:hidden flex-shrink-0"
           >
             <List className="h-3.5 w-3.5 mr-1" />
             Sections
@@ -214,8 +214,8 @@ function ChapterContent() {
             <Badge variant="outline" className="bg-transparent text-amber-400 border-amber-500/30 text-xs mb-3">
               {chapter.number !== "0" ? `Section ${chapter.number}` : 'Preamble'}
             </Badge>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-50 mb-2">{chapter.title}</h2>
-            <p className="text-sm text-slate-400">{chapter.description}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">{chapter.title}</h2>
+            <p className="text-sm text-slate-700">{chapter.description}</p>
           </div>
 
           {/* Sections */}
@@ -227,31 +227,31 @@ function ChapterContent() {
                 ref={(el) => { sectionRefs.current[section.id] = el; }}
                 className="scroll-mt-20"
               >
-                <Card className="bg-slate-800 border-slate-700 shadow-lg overflow-hidden">
+                <Card className="bg-white border-gray-200 shadow-lg overflow-hidden">
                   {/* Section header */}
-                  <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-700/50 flex items-center justify-between gap-2">
+                  <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="text-xs font-mono text-amber-500/70 flex-shrink-0">{section.number}</span>
-                      <h3 className="text-sm sm:text-base font-semibold text-slate-50 truncate">{section.title}</h3>
+                      <span className="text-xs font-mono text-[#FE871F]/70 flex-shrink-0">{section.number}</span>
+                      <h3 className="text-sm sm:text-base font-semibold text-[#43005F] truncate">{section.title}</h3>
                     </div>
                     <button
                       onClick={() => toggleBookmark(section.id)}
                       className={`p-1.5 rounded-md transition-colors flex-shrink-0 ${
                         isBookmarked
-                          ? 'text-amber-400 hover:text-amber-300'
-                          : 'text-slate-500 hover:text-slate-300'
+                          ? 'text-[#FE871F] hover:text-[#E67E1B]'
+                          : 'text-gray-400 hover:text-gray-600'
                       }`}
                       title={isBookmarked ? 'Remove bookmark' : 'Bookmark this section'}
                     >
-                      <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+                      <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-[#FE871F]' : ''}`} />
                     </button>
                   </div>
 
                   {/* Section content */}
                   <CardContent className="p-4 sm:p-6">
                     {section.topics.map((topic) => (
-                      <div key={topic.id} className="prose prose-sm prose-invert max-w-none">
-                        <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">
+                      <div key={topic.id} className="prose prose-sm max-w-none">
+                        <div className="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap">
                           {topic.content}
                         </div>
                       </div>
@@ -266,12 +266,12 @@ function ChapterContent() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 pb-8">
             {prevChapter ? (
               <Link href={`/dashboard/handbook/${prevChapter.id}`} className="flex-1">
-                <Card className="bg-slate-800 border-slate-700 hover:border-amber-500/30 transition-colors cursor-pointer h-full">
+                <Card className="bg-white border-gray-200 hover:border-[#FE871F]/30 transition-colors cursor-pointer h-full">
                   <CardContent className="p-3 sm:p-4 flex items-center gap-3">
-                    <ChevronLeft className="h-4 w-4 text-slate-400 flex-shrink-0" />
+                    <ChevronLeft className="h-4 w-4 text-gray-400 flex-shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-[10px] text-slate-500 uppercase tracking-wider">Previous</p>
-                      <p className="text-xs sm:text-sm text-slate-300 truncate">{prevChapter.title}</p>
+                      <p className="text-[10px] text-gray-600 uppercase tracking-wider">Previous</p>
+                      <p className="text-xs sm:text-sm text-gray-600 truncate">{prevChapter.title}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -279,13 +279,13 @@ function ChapterContent() {
             ) : <div className="flex-1" />}
             {nextChapter ? (
               <Link href={`/dashboard/handbook/${nextChapter.id}`} className="flex-1">
-                <Card className="bg-slate-800 border-slate-700 hover:border-amber-500/30 transition-colors cursor-pointer h-full">
+                <Card className="bg-white border-gray-200 hover:border-[#FE871F]/30 transition-colors cursor-pointer h-full">
                   <CardContent className="p-3 sm:p-4 flex items-center justify-end gap-3">
                     <div className="min-w-0 text-right">
-                      <p className="text-[10px] text-slate-500 uppercase tracking-wider">Next</p>
-                      <p className="text-xs sm:text-sm text-slate-300 truncate">{nextChapter.title}</p>
+                      <p className="text-[10px] text-gray-600 uppercase tracking-wider">Next</p>
+                      <p className="text-xs sm:text-sm text-gray-600 truncate">{nextChapter.title}</p>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-slate-400 flex-shrink-0" />
+                    <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />
                   </CardContent>
                 </Card>
               </Link>
@@ -324,7 +324,7 @@ function ChapterContent() {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 h-10 w-10 rounded-full bg-slate-700 border border-slate-600 text-slate-300 hover:bg-slate-600 shadow-lg flex items-center justify-center z-30 transition-colors"
+          className="fixed bottom-6 right-6 h-10 w-10 rounded-full bg-[#43005F] border border-[#43005F] text-white hover:bg-[#320044] shadow-lg flex items-center justify-center z-30 transition-colors"
         >
           <ChevronUp className="h-5 w-5" />
         </button>

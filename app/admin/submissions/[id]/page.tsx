@@ -305,15 +305,15 @@ export default function SubmissionDetailPage() {
     <div className="space-y-6">
       {/* Header */}
       <Link href="/admin/submissions">
-        <Button variant="ghost" className="gap-2 bg-slate-300 border">
+        <Button variant="ghost" className="gap-2 mt-4 bg-slate-300 border">
           <ArrowLeft className="h-4 w-4" />
           Back to Submissions
         </Button>
       </Link>
 
       <div>
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">Submission Details</h1>
-        <p className="text-xs sm:text-sm text-slate-200 mt-1">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mt-4">Submission Details</h1>
+        <p className="text-xs sm:text-sm text-slate-700 mt-1">
           Review staff member submission for onboarding document
         </p>
       </div>
@@ -321,46 +321,46 @@ export default function SubmissionDetailPage() {
       {/* Staff and Submission Info Side by Side */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Staff Information */}
-        <Card className="lg:col-span-1 bg-slate-800">
+        <Card className="lg:col-span-1 bg-white border-gray-200">
           <CardHeader className="p-4 sm:p-6">
-            <CardTitle className="text-base text-slate-200 sm:text-lg flex items-center gap-2">
+            <CardTitle className="text-base text-slate-700 sm:text-lg flex items-center gap-2">
               <User className="h-4 w-4 sm:h-5 sm:w-5" />
               Staff Member
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 p-4 pt-0 sm:p-6 sm:pt-0">
             <div>
-              <p className="text-xs sm:text-sm text-slate-400">Name</p>
-              <p className="text-sm sm:text-base font-medium text-slate-200">
+              <p className="text-xs sm:text-sm text-slate-800">Name</p>
+              <p className="text-sm sm:text-base font-medium text-slate-700">
                 {submission.user.first_name} {submission.user.last_name}
               </p>
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-400">Email</p>
-              <p className="text-sm sm:text-base font-medium text-slate-300 break-all">
+              <p className="text-xs sm:text-sm text-slate-800">Email</p>
+              <p className="text-sm sm:text-base font-medium text-slate-700 break-all">
                 {submission.user.email}
               </p>
             </div>
             {submission.user.employee_id && (
               <div>
-                <p className="text-sm text-slate-400">Employee ID</p>
-                <p className="font-medium text-slate-300">
+                <p className="text-sm text-slate-700">Employee ID</p>
+                <p className="font-medium text-slate-600">
                   {submission.user.employee_id}
                 </p>
               </div>
             )}
             {submission.user.department && (
               <div>
-                <p className="text-sm text-slate-400">Department</p>
-                <p className="font-medium text-slate-300">
+                <p className="text-sm text-slate-700">Department</p>
+                <p className="font-medium text-slate-600">
                   {submission.user.department}
                 </p>
               </div>
             )}
             {submission.user.position && (
               <div>
-                <p className="text-sm text-slate-400">Position</p>
-                <p className="font-medium text-slate-300">
+                <p className="text-sm text-slate-700">Position</p>
+                <p className="font-medium text-slate-600">
                   {submission.user.position}
                 </p>
               </div>
@@ -369,9 +369,9 @@ export default function SubmissionDetailPage() {
         </Card>
 
         {/* Submission Information */}
-        <Card className="lg:col-span-2 bg-slate-800">
+        <Card className="lg:col-span-2 bg-white border-gray-200">
           <CardHeader className="p-4 sm:p-6">
-            <CardTitle className="text-base text-slate-200 sm:text-lg flex items-center gap-2">
+            <CardTitle className="text-base text-primary sm:text-lg flex items-center gap-2">
               <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
               Document Submission
             </CardTitle>
@@ -379,13 +379,13 @@ export default function SubmissionDetailPage() {
           <CardContent className="space-y-6 p-4 pt-0 sm:p-6 sm:pt-0">
             {/* Document Details */}
             <div>
-              <p className="text-xs sm:text-sm text-slate-400 mb-2">Document</p>
+              <p className="text-xs sm:text-sm text-slate-800 mb-2">Document</p>
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm sm:text-base font-medium text-slate-200">
+                  <p className="text-sm sm:text-base font-medium text-slate-600">
                     {submission.document?.title || 'N/A'}
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                  <p className="text-xs sm:text-sm text-slate-700 mt-1">
                     {submission.document?.description || 'No description'}
                   </p>
                 </div>
@@ -406,10 +406,10 @@ export default function SubmissionDetailPage() {
             {/* Submission Date */}
             <div className="border-t border-slate-200 pt-4">
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-slate-400" />
+                <Calendar className="h-4 w-4 text-slate-600" />
                 <div>
                   <p className="text-sm text-slate-400">Submitted On</p>
-                  <p className="font-medium text-slate-200">
+                  <p className="font-medium text-slate-600">
                     {new Date(submission.completed_at).toLocaleDateString(
                       'en-US',
                       {
@@ -442,7 +442,7 @@ export default function SubmissionDetailPage() {
 
       {/* Document Comparison - Side by Side PDFs */}
       {(originalFileUrl || uploadedFileUrl) && (
-        <Card className='bg-slate-800'>
+        <Card className='bg-primary/80'>
           <CardHeader className="p-4 sm:p-6">
             <CardTitle className="text-base text-slate-300 sm:text-lg">Document Comparison</CardTitle>
             <CardDescription className="text-xs text-slate-400 sm:text-sm">

@@ -99,9 +99,9 @@ export default function AdminLayout({
 
   const SidebarContent = () => (
     <>
-      <div className="p-6 border-b border-slate-800">
-        <h1 className="text-xl font-bold text-slate-50 tracking-tight">Admin Panel</h1>
-        <p className="text-sm text-slate-400 mt-1">Nutrihealth Consult</p>
+      <div className="p-6 border-b border-[#5a1a75]">
+        <h1 className="text-xl font-bold text-white tracking-tight">Admin Panel</h1>
+        <p className="text-sm text-orange-200 mt-1">Nutrihealth Consult</p>
       </div>
 
       <nav className="p-4 flex-1 space-y-2">
@@ -114,8 +114,8 @@ export default function AdminLayout({
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium ${
                 active
-                  ? 'bg-slate-800 text-slate-50 border-l-4 border-blue-500'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-50'
+                  ? 'bg-[#5a1a75] text-white border-l-4 border-[#FE871F]'
+                  : 'text-orange-100 hover:bg-[#5a1a75] hover:text-white'
               }`}
             >
               <Icon className="h-5 w-5 flex-shrink-0" />
@@ -125,11 +125,11 @@ export default function AdminLayout({
         })}
       </nav>
 
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-4 border-t border-[#5a1a75]">
         <Button 
           variant="outline" 
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-slate-50 text-sm"
+          className="w-full flex items-center gap-2 bg-[#5a1a75] border-[#5a1a75] text-white hover:bg-[#FE871F] hover:text-[#43005F] text-sm"
         >
           <LogOut className="h-4 w-4" />
           Logout
@@ -139,7 +139,7 @@ export default function AdminLayout({
   );
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-900">
+    <div className="flex h-screen overflow-hidden bg-white">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
@@ -150,13 +150,13 @@ export default function AdminLayout({
 
       {/* Sidebar - desktop: always visible, mobile: slide-in overlay */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-slate-950 text-white flex flex-col transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-64 bg-[#43005F] text-white flex flex-col transition-transform duration-300 ease-in-out
         lg:static lg:translate-x-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Mobile close button */}
         <button 
-          className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-50 lg:hidden"
+          className="absolute top-4 right-4 p-1 text-orange-200 hover:text-white lg:hidden"
           onClick={() => setSidebarOpen(false)}
         >
           <X className="h-5 w-5" />
@@ -165,17 +165,17 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto min-w-0 bg-slate-900">
+      <main className="flex-1 overflow-auto min-w-0 bg-white">
         {/* Top bar with hamburger - mobile only */}
-        <div className="sticky top-0 z-30 bg-slate-950 border-b border-slate-800 px-4 py-4 flex items-center gap-4 lg:hidden">
+        <div className="sticky top-0 z-30 bg-primary border-b border-gray-200 px-4 py-4 flex items-center gap-4 lg:hidden">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 -ml-2 rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Open menu"
           >
-            <Menu className="h-5 w-5 text-slate-400" />
+            <Menu className="h-5 w-5 text-gray-200" />
           </button>
-          <h2 className="text-sm font-medium text-slate-200">Nutrihealth Admin</h2>
+          <h2 className="text-sm font-medium text-gray-100">Nutrihealth Admin</h2>
         </div>
 
         <div className="p-4 lg:p-8 min-h-full">

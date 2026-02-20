@@ -85,15 +85,15 @@ export default function DashboardLayout({
   const SidebarContent = () => (
     <>
       {/* Logo area */}
-      <div className="p-6 border-b border-slate-700 bg-slate-900">
-        <h1 className="text-lg font-semibold text-slate-50 tracking-tight">
+      <div className="p-6 border-b border-[#5a1a75] bg-[#43005F]">
+        <h1 className="text-lg font-semibold text-white tracking-tight">
           Nutrihealth
         </h1>
-        <p className="text-xs text-slate-400 mt-0.5">Staff Portal</p>
+        <p className="text-xs text-orange-200 mt-0.5">Staff Portal</p>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-0.5 bg-slate-900">
+      <nav className="flex-1 p-3 space-y-0.5 bg-[#43005F]">
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
@@ -103,8 +103,8 @@ export default function DashboardLayout({
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-medium ${
                 active
-                  ? 'bg-blue-600 text-white'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-50'
+                  ? 'bg-[#FE871F] text-[#43005F]'
+                  : 'text-orange-100 hover:bg-[#5a1a75] hover:text-white'
               }`}
             >
               <Icon className="h-[18px] w-[18px] flex-shrink-0" />
@@ -115,15 +115,15 @@ export default function DashboardLayout({
       </nav>
 
       {/* User area + logout */}
-      <div className="p-4 border-t border-slate-700 bg-slate-900">
+      <div className="p-4 border-t border-[#5a1a75] bg-[#43005F]">
         <div className="mb-3 px-2">
-          <p className="text-sm font-medium text-slate-50 truncate">{user?.first_name} {user?.last_name}</p>
-          <p className="text-xs text-slate-500">Staff Member</p>
+          <p className="text-sm font-medium text-white truncate">{user?.first_name} {user?.last_name}</p>
+          <p className="text-xs text-orange-200">Staff Member</p>
         </div>
         <Button
           variant="outline"
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 justify-center bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 text-sm h-9"
+          className="w-full flex items-center gap-2 justify-center bg-[#5a1a75] border-[#5a1a75] text-white hover:bg-[#FE871F] hover:text-[#43005F] text-sm h-9"
           size="sm"
         >
           <LogOut className="h-4 w-4" />
@@ -134,7 +134,7 @@ export default function DashboardLayout({
   );
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-white">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
@@ -145,14 +145,14 @@ export default function DashboardLayout({
 
       {/* Sidebar - mobile: full-width overlay, desktop: fixed 260px */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 bg-slate-900 border-r border-slate-800 flex flex-col transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 bg-[#43005F] border-r border-[#5a1a75] flex flex-col transition-transform duration-300 ease-in-out
         w-full sm:w-72 lg:w-[260px]
         lg:static lg:translate-x-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         {/* Mobile close button */}
         <button 
-          className="absolute top-5 right-5 p-2 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-slate-800 lg:hidden"
+          className="absolute top-5 right-5 p-2 rounded-lg text-orange-200 hover:text-white hover:bg-[#5a1a75] lg:hidden"
           onClick={() => setSidebarOpen(false)}
           aria-label="Close menu"
         >
@@ -162,21 +162,21 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto min-w-0 bg-slate-900">
+      <main className="flex-1 overflow-auto min-w-0 bg-white">
         {/* Top bar */}
-        <div className="sticky top-0 z-30 bg-slate-800/80 backdrop-blur-sm border-b border-slate-700 px-4 py-3 flex items-center justify-between lg:px-8">
+        <div className="sticky top-0 z-30 bg-primary border-b border-gray-200 px-4 py-3 flex items-center justify-between lg:px-8">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 -ml-2 rounded-lg hover:bg-slate-700 transition-colors lg:hidden"
+              className="p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors lg:hidden"
               aria-label="Open menu"
             >
-              <Menu className="h-5 w-5 text-slate-300" />
+              <Menu className="h-5 w-5 text-gray-100" />
             </button>
-            <span className="text-sm font-medium text-slate-400 lg:hidden">Nutrihealth</span>
+            <span className="text-sm font-medium text-background lg:hidden">Nutrihealth</span>
           </div>
-          <div className="text-sm text-slate-400 hidden sm:block">
-            Welcome back, <span className="font-medium text-slate-50">{user?.first_name}</span>
+          <div className="text-sm text-gray-400 hidden sm:block">
+            Welcome back, <span className="font-medium text-gray-300">{user?.first_name}</span>
           </div>
         </div>
         <div className="p-4 lg:p-8">

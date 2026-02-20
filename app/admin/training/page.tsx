@@ -359,22 +359,22 @@ export default function AdminTrainingPage() {
   const youtubeCount = modules.filter((m) => m.youtube_video_id).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-white min-h-screen p-2 rounded-lg">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <div className="min-w-0">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-50 truncate">Training Management</h1>
-          <p className="text-slate-400 mt-1 text-xs sm:text-sm">Create and manage YouTube-based training modules for staff</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary truncate">Training Management</h1>
+          <p className="text-gray-600 mt-1 text-xs sm:text-sm">Create and manage YouTube-based training modules for staff</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href="/admin/training/analytics">
-            <Button variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-slate-50 text-xs sm:text-sm h-8 sm:h-9">
+            <Button variant="outline" size="sm" className="bg-white cursor-pointer border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-gray-900 text-xs sm:text-sm h-8 sm:h-9">
               <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5" />
               Analytics
             </Button>
           </Link>
           <Link href="/admin/training/assignments">
-            <Button variant="outline" size="sm" className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-slate-50 text-xs sm:text-sm h-8 sm:h-9">
+            <Button variant="outline" size="sm" className="bg-white cursor-pointer border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-gray-900 text-xs sm:text-sm h-8 sm:h-9">
               <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5" />
               Assignments
             </Button>
@@ -384,7 +384,7 @@ export default function AdminTrainingPage() {
             if (!open) resetForm();
           }}>
             <DialogTrigger asChild>
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm h-8 sm:h-9">
+              <Button size="sm" className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-xs sm:text-sm h-8 sm:h-9">
                 <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5" />
                 Create Module
               </Button>
@@ -669,7 +669,7 @@ export default function AdminTrainingPage() {
       </div>
 
       {/* Search & Filter */}
-      <Card className="border-slate-700 bg-slate-800 shadow-xl">
+      <Card className="border-nray-200 bg-primary shadow-xl">
         <CardContent className="p-3 sm:p-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <div className="relative">
@@ -679,12 +679,12 @@ export default function AdminTrainingPage() {
                 placeholder="Search modules..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-slate-600 bg-slate-700 text-slate-50 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-sm"
+                className="pl-10 border-slate-600 bg-primary text-slate-50 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-sm"
               />
             </div>
             <div className="flex gap-2">
               <Select value={filterCategory} onValueChange={setFilterCategory}>
-                <SelectTrigger className="flex-1 sm:w-48 sm:flex-none border-slate-600 bg-slate-700 text-slate-50 text-sm h-9">
+                <SelectTrigger className="flex-1 sm:w-48 sm:flex-none border-slate-200 cursor-pointer bg-primary text-slate-50 text-sm h-9">
                   <SelectValue placeholder="All categories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -710,7 +710,7 @@ export default function AdminTrainingPage() {
 
       {/* Modules Grid */}
       {filteredModules.length === 0 ? (
-        <Card className="border-slate-700 bg-slate-800 shadow-xl">
+        <Card className="border-slate-700 bg-primary shadow-xl">
           <CardContent className="py-16 text-center">
             <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center mx-auto mb-4">
               <GraduationCap className="h-6 w-6 text-slate-500" />
@@ -722,7 +722,7 @@ export default function AdminTrainingPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {filteredModules.map((mod) => (
-            <Card key={mod.id} className="border-slate-700 bg-slate-800 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20 transition-all group overflow-hidden">
+            <Card key={mod.id} className="border-slate-700 bg-primary shadow-xl hover:shadow-2xl hover:shadow-blue-900/20 transition-all group overflow-hidden">
               {/* YouTube Thumbnail */}
               {mod.youtube_video_id && (
                 <div className="relative overflow-hidden">
@@ -828,7 +828,7 @@ export default function AdminTrainingPage() {
                     Assign
                   </Button>
                   {mod.file_url && (
-                    <Button variant="outline" size="sm" asChild className="bg-transparent border-slate-600 text-slate-300 hover:bg-slate-700">
+                    <Button variant="outline" size="sm" asChild className="bg-transparent border-slate-200 text-slate-300 hover:bg-slate-200 cursor-pointer">
                       <a href={mod.file_url} target="_blank" rel="noopener noreferrer">
                         <FileText className="h-3.5 w-3.5" />
                       </a>

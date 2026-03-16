@@ -210,17 +210,27 @@ export default function AdminStaffPage() {
   };
 
   const handleDeactivateStaff = async (userId: string, staffName: string) => {
-    if (!confirm(`Are you sure you want to deactivate ${staffName}?`)) {
+    const confirmed = confirm(
+      `Are you sure you want to PERMANENTLY DELETE ${staffName}?\n\n` +
+      `This action will:\n` +
+      `- Delete the staff member's account\n` +
+      `- Remove all their onboarding documents\n` +
+      `- Remove all their training records\n` +
+      `- Remove all their HR records\n\n` +
+      `This action CANNOT be undone.`
+    );
+    
+    if (!confirmed) {
       return;
     }
 
     try {
       const result = await deactivateStaff(userId);
       if (result.success) {
-        toast.success('Staff member deactivated');
+        toast.success(result.message || 'Staff member deleted successfully');
         fetchStaffData();
       } else {
-        toast.error(result.error || 'Failed to deactivate staff member');
+        toast.error(result.error || 'Failed to delete staff member');
       }
     } catch {
       toast.error('An unexpected error occurred');
@@ -598,7 +608,7 @@ export default function AdminStaffPage() {
                                     className="text-red-600 focus:text-red-600"
                                   >
                                     <UserX className="h-4 w-4 mr-2" />
-                                    Deactivate
+                                    Delete Staff
                                   </DropdownMenuItem>
                                 </>
                               )}
@@ -671,7 +681,7 @@ export default function AdminStaffPage() {
                             }
                           >
                             <UserX className="h-3.5 w-3.5 mr-1" />
-                            Deactivate
+                            Delete
                           </Button>
                         )}
                       </div>
@@ -931,7 +941,7 @@ export default function AdminStaffPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white"
               >
                 {isSubmitting ? (
                   <>

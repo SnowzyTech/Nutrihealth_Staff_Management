@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { AlertCircle, CheckCircle2, Shield, Eye, EyeOff, Info } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Shield, Eye, EyeOff, Info, Loader2 } from 'lucide-react';
 
 interface PasswordRequirement {
   label: string;
@@ -26,6 +26,30 @@ export default function ChangePasswordPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  // Check if user has a valid session on mount
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError || !session) {
+          // No session, redirect to login
+          router.push('/auth/login');
+          return;
+        }
+        
+        setUserEmail(session.user.email || null);
+        setIsCheckingSession(false);
+      } catch {
+        router.push('/auth/login');
+      }
+    };
+    
+    checkSession();
+  }, [router]);
 
   // Password requirements check
   const requirements: PasswordRequirement[] = [
@@ -52,6 +76,18 @@ export default function ChangePasswordPage() {
 
   const strength = getPasswordStrength();
 
+  // Show loading state while checking session
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-slate-50 to-green-50">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+          <p className="text-slate-600">Verifying your session...</p>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -69,6 +105,16 @@ export default function ChangePasswordPage() {
     setIsLoading(true);
 
     try {
+      // First, ensure we have an active session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError || !session) {
+        setError('Your session has expired. Please log in again.');
+        setIsLoading(false);
+        router.push('/auth/login');
+        return;
+      }
+
       // Update the password and remove the requires_password_change flag
       const { error: updateError } = await supabase.auth.updateUser({
         password: newPassword,
@@ -78,15 +124,28 @@ export default function ChangePasswordPage() {
       });
 
       if (updateError) {
-        setError(updateError.message);
+        // Handle specific error cases
+        if (updateError.message.includes('same as the old password') || 
+            updateError.message.includes('should be different')) {
+          setError('New password must be different from your current password');
+        } else if (updateError.message.includes('session')) {
+          setError('Your session has expired. Please log in again and try again.');
+          // Give user time to read the error, then redirect
+          setTimeout(() => router.push('/auth/login'), 2000);
+        } else {
+          setError(updateError.message);
+        }
+        setIsLoading(false);
         return;
       }
 
-      // Redirect to dashboard after successful password change
-      router.push('/dashboard');
+      // Sign out and redirect to login for a fresh session with new password
+      await supabase.auth.signOut();
+      
+      // Redirect to login with success message
+      router.push('/auth/login?message=password_changed');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
+      setError(err instanceof Error ? err.message : 'An error occurred. Please try again.');
       setIsLoading(false);
     }
   };

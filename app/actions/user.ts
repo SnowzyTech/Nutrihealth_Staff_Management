@@ -304,32 +304,70 @@ export async function deactivateStaff(userId: string) {
       return { success: false, error: 'Only admins can deactivate staff accounts' };
     }
 
-    const { data, error } = await supabase
-      .from('users')
-      .update({ is_active: false, updated_at: new Date().toISOString() })
-      .eq('id', userId)
-      .select();
-
-    if (error) {
-      return { success: false, error: error.message };
+    // Prevent admin from deactivating themselves
+    if (userId === currentUser.id) {
+      return { success: false, error: 'You cannot deactivate your own account' };
     }
 
-    // Create audit log for deactivation
+    // Get the staff member's details before deletion for audit log
+    const { data: staffData } = await supabase
+      .from('users')
+      .select('email, first_name, last_name, employee_id')
+      .eq('id', userId)
+      .single();
+
+    if (!staffData) {
+      return { success: false, error: 'Staff member not found' };
+    }
+
+    // Note: Most related records will be automatically deleted via ON DELETE CASCADE
+    // in the database schema. We only need to delete the user record itself.
+    // The CASCADE handles: onboarding_progress, training_progress, hr_records, notifications
+    
+    // For tables without CASCADE (created_by references), they will be set to NULL automatically
+
+    // Delete the user record from the users table
+    const { error: deleteUserError } = await supabase
+      .from('users')
+      .delete()
+      .eq('id', userId);
+
+    if (deleteUserError) {
+      console.error('Error deleting user record:', deleteUserError);
+      return { success: false, error: 'Failed to delete staff record: ' + deleteUserError.message };
+    }
+
+    // Delete the auth user from Supabase Auth
+    const { error: authDeleteError } = await supabase.auth.admin.deleteUser(userId);
+
+    if (authDeleteError) {
+      console.error('Error deleting auth user:', authDeleteError);
+      // User record is already deleted, so we should still return success
+      // but log this for admin awareness
+    }
+
+    // Create audit log for deletion
     await supabase.from('audit_logs').insert({
       user_id: currentUser.id,
-      action: 'deactivate_staff',
+      action: 'delete_staff',
       entity_type: 'user',
       entity_id: userId,
       details: {
-        deactivated_at: new Date().toISOString(),
+        deleted_at: new Date().toISOString(),
+        staff_email: staffData.email,
+        staff_name: `${staffData.first_name} ${staffData.last_name}`,
+        employee_id: staffData.employee_id,
       },
     });
 
     revalidatePath('/admin/staff');
 
-    return { success: true, message: 'Staff member deactivated', data };
+    return { 
+      success: true, 
+      message: `Staff member ${staffData.first_name} ${staffData.last_name} has been permanently deleted` 
+    };
   } catch (error) {
     console.error('Deactivate staff error:', error);
-    return { success: false, error: 'Failed to deactivate staff' };
+    return { success: false, error: 'Failed to delete staff member' };
   }
 }

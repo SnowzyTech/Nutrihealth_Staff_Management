@@ -321,7 +321,7 @@ export default function OnboardingDocumentPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Link
             href="/dashboard/onboarding"
-            className="text-[#43005F] hover:text-[#320044] border border-gray-200 p-2 mt-3  rounded text-sm mb-6 inline-flex items-center gap-1"
+            className="text-[#43005F] p-3 hover:text-[#320044] border-2 border-primary bg-white  mt-3  rounded text-sm mb-6 inline-flex items-center gap-1"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Onboarding</span>
@@ -508,7 +508,7 @@ function DownloadSection({ document }: { document: OnboardingDocument }) {
   const [showPdfPreview, setShowPdfPreview] = useState(false);
 
   return (
-    <Card className="bg-slate-400">
+    <Card className="bg-gradient-to-r from-[#43005F]/5 to-[#FE871F]/5">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Download className="h-5 w-5" />
@@ -586,7 +586,7 @@ function DownloadSection({ document }: { document: OnboardingDocument }) {
                 variant="outline" 
                 size="lg" 
                 onClick={() => setShowPdfPreview(!showPdfPreview)}
-                className="bg-transparent gap-2"
+                className="bg-transparent gap-2 cursor-pointer"
               >
                 {showPdfPreview ? (
                   <>
@@ -664,7 +664,7 @@ function UploadSection({
   return (
     <Card className="bg-slate-750">
       <CardHeader>
-        <CardTitle className="flex items-center text-slate-200 gap-2">
+        <CardTitle className="flex items-center text-primary gap-2">
           <Upload className="h-5 w-5" />
           Upload Completed Document
         </CardTitle>
@@ -683,7 +683,7 @@ function UploadSection({
               border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
               ${isDragOver 
                 ? 'border-blue-500 bg-blue-50' 
-                : 'border-slate-300 hover:border-slate-400 hover:bg-slate-300'
+                : 'border-slate-300 hover:border-slate-200 hover:bg-gradient-to-r from-[#43005F]/5 to-[#FE871F]/5'
               }
               ${isUploading ? 'pointer-events-none opacity-60' : ''}
             `}
@@ -698,7 +698,7 @@ function UploadSection({
             />
             <label htmlFor="file-upload" className="cursor-pointer">
               <Upload className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-              <p className="text-lg font-medium text-slate-300 mb-1">
+              <p className="text-lg font-medium text-slate-700 mb-1">
                 Click to Upload or Drag PDF Here
               </p>
               <p className="text-sm text-slate-400">
@@ -766,7 +766,7 @@ function UploadSection({
 
         {/* Notes Section */}
         <div className="space-y-2">
-          <label htmlFor="notes" className="text-sm font-medium text-slate-300">
+          <label htmlFor="notes" className="text-sm font-medium text-primary">
             Additional Notes or Questions (Optional)
           </label>
           <Textarea
@@ -780,22 +780,22 @@ function UploadSection({
         </div>
 
         {/* Acknowledgment Checkbox */}
-        <div className="border-t border-slate-200 pt-4">
+        <div className="border-t border-slate-400 pt-4">
           <div className="flex items-start gap-3">
             <Checkbox
               id="acknowledgment"
               checked={acknowledgment}
               onCheckedChange={(checked) => onAcknowledgmentChange(checked === true)}
-              className="mt-1"
+              className="mt-1 border border-slate-400 cursor-pointer"
             />
             <div className="flex-1">
               <label
                 htmlFor="acknowledgment"
-                className="text-sm font-medium text-slate-200 cursor-pointer"
+                className="text-sm font-medium text-primary cursor-pointer"
               >
                 I confirm this information is accurate
               </label>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 By checking this box, you confirm that all information in the uploaded document is accurate and complete
               </p>
             </div>
@@ -806,7 +806,7 @@ function UploadSection({
         <Button
           onClick={onSubmit}
           disabled={!canSubmit || isSaving}
-          className="w-full bg-slate-900 border hover:bg-slate-950 coursor-pointer"
+          className="w-full bg-primary border cursor-pointer hover:bg-primary/90 coursor-pointer"
           size="lg"
         >
           {isSaving ? (

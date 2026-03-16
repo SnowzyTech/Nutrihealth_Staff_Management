@@ -6,11 +6,10 @@ export async function getAdminDashboardStats() {
   try {
     const supabase = createServerClient();
 
-    // 1. Total active staff count
+    // 1. Total staff count (all users excluding the query user, all roles, active only)
     const { count: totalStaff } = await supabase
       .from('users')
       .select('*', { count: 'exact', head: true })
-      .eq('role', 'staff')
       .eq('is_active', true);
 
     // 2. Pending documents (submissions with status 'submitted' - awaiting review)

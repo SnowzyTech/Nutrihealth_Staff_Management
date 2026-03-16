@@ -2,38 +2,66 @@
 
 import React from "react"
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Shield, AlertCircle, Loader2 } from 'lucide-react';
+import { Shield, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Check for success messages from redirects
+  useEffect(() => {
+    const message = searchParams.get('message');
+    if (message === 'password_changed') {
+      setSuccessMessage('Password changed successfully! Please log in with your new password.');
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
     setIsLoading(true);
 
     try {
+      // Trim email and password to avoid whitespace issues
+      const trimmedEmail = email.trim().toLowerCase();
+      const trimmedPassword = password;
+
+      if (!trimmedEmail || !trimmedPassword) {
+        setError('Please enter both email and password.');
+        setIsLoading(false);
+        return;
+      }
+
       // Use browser client to sign in - this persists the session in cookies
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: trimmedEmail,
+        password: trimmedPassword,
       });
 
       if (signInError) {
-        setError(signInError.message);
+        // Provide more user-friendly error messages
+        if (signInError.message.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please check your credentials and try again.');
+        } else if (signInError.message.includes('Email not confirmed')) {
+          setError('Your email has not been confirmed. Please contact administrator.');
+        } else {
+          setError(signInError.message);
+        }
         setIsLoading(false);
         return;
       }
@@ -67,6 +95,15 @@ export default function LoginPage() {
         return;
       }
 
+      // Check if user needs to change password (first login)
+      const requiresPasswordChange = data.user.user_metadata?.requires_password_change;
+      
+      if (requiresPasswordChange) {
+        // Redirect to change password page
+        window.location.href = '/auth/change-password';
+        return;
+      }
+
       // Redirect based on role - use window.location for full page reload to ensure cookies are sent
       const redirectTo = userData.role === 'admin' ? '/admin' : '/dashboard';
       window.location.href = redirectTo;
@@ -93,6 +130,13 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {successMessage && (
+              <Alert className="bg-green-50 border-green-200">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <AlertDescription className="text-green-700">{successMessage}</AlertDescription>
+              </Alert>
+            )}
+            
             {error && (
               <Alert variant="destructive" className="bg-red-50 border-red-200">
                 <AlertCircle className="h-4 w-4" />

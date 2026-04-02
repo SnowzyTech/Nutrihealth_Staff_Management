@@ -32,12 +32,13 @@ export async function updateUserProfile(userId: string, input: z.infer<typeof Us
     const supabase = createServerClient();
     const validatedInput = UserProfileSchema.parse(input);
 
+    // Note: email is intentionally NOT updated here as staff should not change their email
+    // Email changes would break authentication since the auth user email wouldn't match
     const { data, error } = await supabase
       .from('users')
       .update({
         first_name: validatedInput.firstName,
         last_name: validatedInput.lastName,
-        email: validatedInput.email,
         phone: validatedInput.phone,
         department: validatedInput.department,
         position: validatedInput.position,

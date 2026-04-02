@@ -122,9 +122,9 @@ export default function OnboardingDocumentPage() {
       return false;
     }
     
-    // Check file size (10MB max)
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error('File size must be less than 10MB');
+    // Check file size (20MB max)
+    if (file.size > 20 * 1024 * 1024) {
+      toast.error('File size must be less than 20MB');
       return false;
     }
     
@@ -702,7 +702,7 @@ function UploadSection({
                 Click to Upload or Drag PDF Here
               </p>
               <p className="text-sm text-slate-400">
-                Only PDF files accepted. Maximum file size: 10MB
+                Only PDF files accepted. Maximum file size: 20MB
               </p>
             </label>
           </div>

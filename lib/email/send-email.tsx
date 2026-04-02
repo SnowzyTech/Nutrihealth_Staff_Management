@@ -14,6 +14,16 @@ export interface EmailOptions {
   message?: string;
 }
 
+// Helper function to escape HTML special characters for safe display in emails
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // Professional email template wrapper
 function getEmailTemplate(content: string) {
   return `
@@ -100,7 +110,7 @@ export async function sendWelcomeEmail({
           <strong>Email:</strong> ${email}
         </p>
         <p style="margin: 5px 0; color: #334155; font-family: 'Courier New', monospace; font-size: 14px;">
-          <strong>Temporary Password:</strong> ${temporaryPassword}
+          <strong>Temporary Password:</strong> ${temporaryPassword ? escapeHtml(temporaryPassword) : ''}
         </p>
       </div>
       

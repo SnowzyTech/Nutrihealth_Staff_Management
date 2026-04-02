@@ -5,6 +5,7 @@ import React from "react"
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { firstLoginPasswordChangeAction } from '@/app/actions/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -115,25 +116,23 @@ export default function ChangePasswordPage() {
         return;
       }
 
-      // Update the password and remove the requires_password_change flag
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword,
-        data: {
-          requires_password_change: false,
-        },
+      // Use server action to update password with admin privileges
+      // This properly clears the requires_password_change flag
+      const result = await firstLoginPasswordChangeAction({
+        newPassword,
+        confirmPassword,
       });
 
-      if (updateError) {
+      if (!result.success) {
         // Handle specific error cases
-        if (updateError.message.includes('same as the old password') || 
-            updateError.message.includes('should be different')) {
+        if (result.error?.includes('same as the old password') || 
+            result.error?.includes('should be different')) {
           setError('New password must be different from your current password');
-        } else if (updateError.message.includes('session')) {
-          setError('Your session has expired. Please log in again and try again.');
-          // Give user time to read the error, then redirect
+        } else if (result.error?.includes('session') || result.error?.includes('Session')) {
+          setError('Your session has expired. Please log in again.');
           setTimeout(() => router.push('/auth/login'), 2000);
         } else {
-          setError(updateError.message);
+          setError(result.error || 'Failed to change password');
         }
         setIsLoading(false);
         return;

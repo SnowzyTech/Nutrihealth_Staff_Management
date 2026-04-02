@@ -63,11 +63,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file size (50MB max for videos, 10MB for others)
-    const maxSize = file.type.startsWith('video/') ? 50 * 1024 * 1024 : 10 * 1024 * 1024;
+    // Validate file size (50MB max for videos, 20MB for others)
+    const maxSize = file.type.startsWith('video/') ? 50 * 1024 * 1024 : 20 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json(
-        { error: `File too large. Max size: ${file.type.startsWith('video/') ? '50MB' : '10MB'}` },
+        { error: `File too large. Max size: ${file.type.startsWith('video/') ? '50MB' : '20MB'}` },
         { status: 400 }
       );
     }

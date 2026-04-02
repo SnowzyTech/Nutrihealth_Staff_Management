@@ -1,26 +1,28 @@
 export function generateSecurePassword(length: number = 12): string {
   // Use characters that are unambiguous and easy to read/type
   // Removed: l, 1, I, O, 0 (easily confused)
-  // Removed problematic symbols that may cause issues in emails/URLs
+  // Using only email-safe symbols that won't cause HTML/URL issues
   const uppercase = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; // Removed I, O
   const lowercase = 'abcdefghjkmnpqrstuvwxyz'; // Removed i, l, o
   const numbers = '23456789'; // Removed 0, 1
-  const symbols = '@#$%&*!'; // Only safe, common symbols
+  const symbols = '#$%!'; // Reduced to only completely safe symbols (no &, <, >, @, *)
   
   const allChars = uppercase + lowercase + numbers + symbols;
   
-  // Use crypto for better randomness
+  // Use crypto for better randomness - works in both Node.js and browser
   const getRandomIndex = (max: number): number => {
-    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    // Use Node.js crypto module for server-side
+    if (typeof globalThis !== 'undefined' && typeof globalThis.crypto !== 'undefined') {
       const array = new Uint32Array(1);
-      crypto.getRandomValues(array);
+      globalThis.crypto.getRandomValues(array);
       return array[0] % max;
     }
+    // Fallback for older environments
     return Math.floor(Math.random() * max);
   };
   
   let password = '';
-  // Ensure at least one character from each category
+  // Ensure at least one character from each category for password strength
   password += uppercase[getRandomIndex(uppercase.length)];
   password += lowercase[getRandomIndex(lowercase.length)];
   password += numbers[getRandomIndex(numbers.length)];

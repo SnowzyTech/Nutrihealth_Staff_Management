@@ -166,8 +166,8 @@ export default function HRRecordsPage() {
       toast.error('Only PDF files are allowed');
       return false;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error('File size must be less than 10MB');
+    if (file.size > 20 * 1024 * 1024) {
+      toast.error('File size must be less than 20MB');
       return false;
     }
     return true;
@@ -503,7 +503,7 @@ export default function HRRecordsPage() {
                       Click to Upload or Drag PDF Here
                     </p>
                     <p className="text-xs text-slate-500">
-                      Only PDF files accepted. Maximum: 10MB
+                      Only PDF files accepted. Maximum: 20MB
                     </p>
                   </label>
                 </div>

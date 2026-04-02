@@ -3,7 +3,7 @@
 import { createServerClient, createServerClientWithCookies } from '@/lib/supabase/server';
 import { sendWelcomeEmail, sendPasswordResetEmail } from '@/lib/email/send-email';
 import { generateSecurePassword } from '@/lib/auth/generate-password';
-import { LoginSchema, SignupSchema, ResetPasswordSchema, ChangePasswordSchema } from '@/lib/schemas/auth';
+import { LoginSchema, SignupSchema, ResetPasswordSchema, ChangePasswordSchema, FirstLoginPasswordChangeSchema } from '@/lib/schemas/auth';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -208,6 +208,47 @@ export async function changePasswordAction(input: z.infer<typeof ChangePasswordS
       return { success: false, error: error.errors[0].message };
     }
     console.error('Change password error:', error);
+    return { success: false, error: 'An unexpected error occurred' };
+  }
+}
+
+// Server action for first-time password change (called from change-password page)
+// Uses admin client to properly update password and clear requires_password_change flag
+export async function firstLoginPasswordChangeAction(input: z.infer<typeof FirstLoginPasswordChangeSchema>) {
+  try {
+    // Get current user session using cookie-based client
+    const supabaseWithCookies = await createServerClientWithCookies();
+    const { data: { user: currentUser } } = await supabaseWithCookies.auth.getUser();
+
+    if (!currentUser) {
+      return { success: false, error: 'Session expired. Please log in again.' };
+    }
+
+    const validatedInput = FirstLoginPasswordChangeSchema.parse(input);
+
+    // Use admin client to update the password and clear the requires_password_change flag
+    const supabase = createServerClient();
+    const { error } = await supabase.auth.admin.updateUserById(currentUser.id, {
+      password: validatedInput.newPassword,
+      user_metadata: {
+        requires_password_change: false,
+      },
+    });
+
+    if (error) {
+      console.error('First login password change error:', error);
+      return { success: false, error: error.message };
+    }
+
+    revalidatePath('/dashboard');
+    revalidatePath('/admin');
+
+    return { success: true, message: 'Password changed successfully' };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { success: false, error: error.errors[0].message };
+    }
+    console.error('First login password change error:', error);
     return { success: false, error: 'An unexpected error occurred' };
   }
 }

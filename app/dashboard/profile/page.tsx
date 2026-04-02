@@ -116,7 +116,6 @@ export default function ProfilePage() {
       const result = await updateUserProfile(user.id, {
         firstName: profile.firstName,
         lastName: profile.lastName,
-        email: profile.email,
         phone: profile.phone,
         department: profile.department,
         position: profile.position,
@@ -250,10 +249,10 @@ export default function ProfilePage() {
                       id="email"
                       type="email"
                       value={profile.email}
-                      onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                      className="bg-gray-50 border-gray-200 text-[#43005F]"
-                      required
+                      disabled
+                      className="bg-gray-100 border-gray-200 text-gray-600 cursor-not-allowed"
                     />
+                    <p className="text-xs text-gray-500">Email cannot be changed. Contact admin if needed.</p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-sm font-medium text-[#43005F]">Phone Number</Label>

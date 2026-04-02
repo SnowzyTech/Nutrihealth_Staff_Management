@@ -30,7 +30,17 @@ export const ChangePasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
+// Schema for first-time password change (no current password needed since user has session)
+export const FirstLoginPasswordChangeSchema = z.object({
+  newPassword: z.string().min(8, 'New password must be at least 8 characters'),
+  confirmPassword: z.string(),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
 export type LoginInput = z.infer<typeof LoginSchema>;
 export type SignupInput = z.infer<typeof SignupSchema>;
 export type ResetPasswordInput = z.infer<typeof ResetPasswordSchema>;
 export type ChangePasswordInput = z.infer<typeof ChangePasswordSchema>;
+export type FirstLoginPasswordChangeInput = z.infer<typeof FirstLoginPasswordChangeSchema>;

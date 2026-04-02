@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import ImageKit from 'imagekit';
 
+// Export config to allow larger payloads for this route
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '20mb',
+    },
+  },
+};
+
 // ImageKit configuration
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',

@@ -1,0 +1,31 @@
+{
+  "functions": {
+    "app/api/uploads/documents/route.ts": {
+      "maxDuration": 60,
+      "memory": 3008
+    },
+    "app/api/uploads/avatar/route.ts": {
+      "maxDuration": 30,
+      "memory": 1024
+    },
+    "app/api/uploads/signature/route.ts": {
+      "maxDuration": 30,
+      "memory": 1024
+    },
+    "app/api/uploads/hr-document/route.ts": {
+      "maxDuration": 60,
+      "memory": 3008
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/uploads/:path*",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
+  ]
+}

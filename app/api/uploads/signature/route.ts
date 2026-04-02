@@ -2,14 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { IMAGEKIT_UPLOAD_FOLDERS } from '@/lib/imagekit';
 
-// Export config to allow larger payloads for this route
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '2mb',
-    },
-  },
-};
+// Increase timeout for uploads
+export const maxDuration = 30;
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,

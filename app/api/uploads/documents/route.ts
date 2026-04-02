@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import ImageKit from 'imagekit';
 
-// Export config to allow larger payloads for this route
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '20mb',
-    },
-  },
-};
+// Increase timeout for larger uploads
+export const maxDuration = 60;
 
 // ImageKit configuration
 const imagekit = new ImageKit({

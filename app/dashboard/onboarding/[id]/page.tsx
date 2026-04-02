@@ -569,8 +569,8 @@ function DownloadSection({ document }: { document: OnboardingDocument }) {
         {/* Action Buttons */}
         {document.file_url ? (
           <div className="space-y-4">
-            <div className="flex gap-3">
-              <Button asChild size="lg" className="flex-1">
+            <div className=" gap-5 md:flex-row flex-col w-full">
+              <Button asChild size="lg" className="flex-1 md:mb-1 lg:mb-1 mb-4">
                 <a 
                   href={document.file_url} 
                   target="_blank" 

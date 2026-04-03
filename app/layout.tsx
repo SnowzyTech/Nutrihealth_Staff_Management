@@ -14,7 +14,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'NutriHealth Consult | Staff Management & Training Platform',
-  description: 'Comprehensive HR management platform for staff onboarding, training assignments, document management, and team coordination.',
+  description: 'Comprehensive HR management platform for staff management.',
   keywords: 'staff management, HR platform, training, onboarding, document management',
 
   verification: {

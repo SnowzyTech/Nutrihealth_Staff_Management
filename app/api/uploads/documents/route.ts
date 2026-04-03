@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import ImageKit from 'imagekit';
+import { createServerClientWithCookies } from '@/lib/supabase/server';
 
 // Increase timeout for larger uploads
 export const maxDuration = 60;
@@ -11,6 +12,58 @@ const imagekit = new ImageKit({
   urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT || '',
 });
 
+/**
+ * GET handler: Returns ImageKit authentication parameters for client-side direct uploads.
+ * Requires an authenticated user session to prevent anonymous abuse.
+ */
+export async function GET() {
+  try {
+    // Verify the user is authenticated before issuing upload tokens
+    const supabase = await createServerClientWithCookies();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    if (
+      !process.env.IMAGEKIT_PUBLIC_KEY ||
+      !process.env.IMAGEKIT_PRIVATE_KEY ||
+      !process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            'ImageKit is not configured. Please set IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, and NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT in your environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
+    const authParams = imagekit.getAuthenticationParameters();
+
+    return NextResponse.json({
+      ...authParams,
+      publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+    });
+  } catch (error) {
+    console.error('ImageKit auth error:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate authentication parameters' },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * POST handler: Server-side upload fallback.
+ * NOTE: This will fail on Vercel for files > 4.5MB due to serverless function payload limits.
+ * Prefer using the client-side direct upload (GET auth + direct upload to ImageKit).
+ * Kept as a fallback for small files or local development.
+ */
 export async function POST(request: NextRequest) {
   try {
     // Check if ImageKit is configured

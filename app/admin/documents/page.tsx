@@ -175,21 +175,18 @@ export default function AdminDocumentsPage() {
   const uploadFile = async (file: File): Promise<string | null> => {
     setIsUploading(true);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', '/documents');
+      const { uploadToImageKit } = await import('@/lib/imagekit-upload');
 
-      const response = await fetch('/api/uploads/documents', {
-        method: 'POST',
-        body: formData,
+      const result = await uploadToImageKit({
+        file,
+        folder: '/documents',
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to upload file');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to upload file');
       }
 
-      const data = await response.json();
-      return data.url;
+      return result.url || null;
     } catch (error) {
       console.error('Upload error:', error);
       toast.error('Failed to upload file');

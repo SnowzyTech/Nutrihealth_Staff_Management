@@ -175,32 +175,22 @@ export default function OnboardingDocumentPage() {
     setUploadProgress(0);
     
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('folder', '/completed-documents');
-      formData.append('userId', user.id);
-      formData.append('documentType', 'completed-document');
+      const { uploadToImageKit } = await import('@/lib/imagekit-upload');
 
-      // Simulate progress for better UX
-      const progressInterval = setInterval(() => {
-        setUploadProgress(prev => Math.min(prev + 10, 90));
-      }, 200);
-
-      const response = await fetch('/api/uploads/documents', {
-        method: 'POST',
-        body: formData,
+      const result = await uploadToImageKit({
+        file,
+        folder: '/completed-documents',
+        userId: user.id,
+        documentType: 'completed-document',
+        onProgress: (progress) => setUploadProgress(progress),
       });
 
-      clearInterval(progressInterval);
-
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to upload file');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to upload file');
       }
 
       setUploadProgress(100);
-      setUploadedFileUrl(data.url);
+      setUploadedFileUrl(result.url || null);
       toast.success('File uploaded successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to upload file';
